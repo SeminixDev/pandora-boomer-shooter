@@ -11,12 +11,10 @@ points = PackedVector3Array(-0.12520654, -0.532801, -0.4805069, 0.022783129, 0.4
 script = ExtResource("1_xhfnw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=820187433]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_0rwas")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=679878180]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("ConvexPolygonShape3D_xhfnw")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1328662039]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2195004, -0.18951786)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -0.19)
