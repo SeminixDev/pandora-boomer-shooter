@@ -90,4 +90,4 @@ mesh = SubResource("BoxMesh_dwbse")
 shape = SubResource("ConcavePolygonShape3D_pkg7o")
 
 [node name="CharacterBody3D" parent="." unique_id=1346923229 instance=ExtResource("1_f3sb7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.111974716, 0, -0.03399372)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.111974716, 0, 4.33877)
