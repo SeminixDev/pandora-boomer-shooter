@@ -28,7 +28,4 @@ func _on_body_entered(body: Node3D) -> void:
 
 func set_direction(dir: Vector3) -> void:
 	direction = dir
-	
-	# Optional: If you want the bullet mesh to visually face the direction it travels
-	# We make it look at a point slightly ahead of it
 	look_at(position + direction, Vector3.UP)
