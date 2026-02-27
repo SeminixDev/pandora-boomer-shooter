@@ -70,15 +70,15 @@ collision_mask = 1
 
 [node name="Enemies" type="Node" parent="." unique_id=828516008]
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="Enemies" unique_id=457434615]
+[node name="Enemy" type="CharacterBody3D" parent="Enemies" unique_id=457434615]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -10.566)
 collision_layer = 4
 collision_mask = 3
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Enemies/CharacterBody3D" unique_id=1344859581]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enemies/Enemy" unique_id=1344859581]
 mesh = SubResource("CapsuleMesh_folwd")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemies/CharacterBody3D" unique_id=1347746131]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemies/Enemy" unique_id=1347746131]
 shape = SubResource("ConvexPolygonShape3D_y6flb")
 
 [node name="Environment" type="Node" parent="." unique_id=2127158984]
