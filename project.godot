@@ -17,9 +17,9 @@ config/icon="res://icon.svg"
 
 [layer_names]
 
-3d_physics/layer_1="Player"
-3d_physics/layer_2="Enemy"
-3d_physics/layer_3="Environment"
+3d_physics/layer_1="Common"
+3d_physics/layer_2="Player"
+3d_physics/layer_3="Enemy"
 3d_physics/layer_4="Pickup"
 3d_physics/layer_5="Trap"
 3d_physics/layer_9="Player Attack"
