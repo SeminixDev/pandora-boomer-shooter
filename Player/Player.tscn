@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bf5eg8wvt0fvu"]
 
 [ext_resource type="Script" uid="uid://bu2lvhlw8hx1p" path="res://Player/player.gd" id="1_xhfnw"]
+[ext_resource type="PackedScene" uid="uid://c5o66lq5ohpk7" path="res://Weapons/bullet.tscn" id="2_4ntmi"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_0rwas"]
 
@@ -11,6 +12,7 @@ points = PackedVector3Array(-0.12520654, -0.532801, -0.4805069, 0.022783129, 0.4
 collision_layer = 2
 collision_mask = 541
 script = ExtResource("1_xhfnw")
+bullet_scene = ExtResource("2_4ntmi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1804009906]
 mesh = SubResource("CapsuleMesh_0rwas")
@@ -20,3 +22,7 @@ shape = SubResource("ConvexPolygonShape3D_xhfnw")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1803648156]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -0.19)
+
+[node name="BulletSpawnMarker" type="Marker3D" parent="Camera3D" unique_id=358114221]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1359449)
