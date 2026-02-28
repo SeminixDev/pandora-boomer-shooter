@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://dshhth2hutp67"]
 
 [ext_resource type="Script" uid="uid://biagln1y5nsbd" path="res://Enemy/enemy.gd" id="1_2pb1h"]
+[ext_resource type="PackedScene" uid="uid://c5o66lq5ohpk7" path="res://Weapons/bullet.tscn" id="2_am0pq"]
 [ext_resource type="PackedScene" uid="uid://bnfi2lyx5utkf" path="res://Models/Character.glb" id="2_px1sc"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_px1sc"]
-radius = 0.44921875
+[sub_resource type="BoxShape3D" id="BoxShape3D_am0pq"]
+size = Vector3(1, 2.071762, 0.41137695)
 
 [sub_resource type="BoxMesh" id="BoxMesh_sword"]
 size = Vector3(0.1, 0.8, 0.1)
@@ -21,7 +22,7 @@ step = 0.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SwordAim/SwordPivot:rotation")
+tracks/0/path = NodePath("MeleeAim/MeleePivot:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -38,7 +39,7 @@ step = 1.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SwordAim/SwordPivot:rotation")
+tracks/0/path = NodePath("MeleeAim/MeleePivot:rotation")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -60,20 +61,22 @@ _data = {
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_2pb1h")
+bullet_scene = ExtResource("2_am0pq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=801795590]
-transform = Transform3D(0.99999785, 0, 3.874302e-07, 0, 1, 0, -3.874302e-07, 0, 0.99999785, 0, 0.00076293945, 0)
-shape = SubResource("CylinderShape3D_px1sc")
+transform = Transform3D(1, 0, 3.8743102e-07, 0, 1, 0, -3.8743102e-07, 0, 1, -2.6957494e-09, 0.02823639, -0.006958008)
+shape = SubResource("BoxShape3D_am0pq")
 
 [node name="Character" parent="." unique_id=677145848 instance=ExtResource("2_px1sc")]
 transform = Transform3D(0.615, 0, 0, 0, 0.615, 0, 0, 0, 0.615, 0, -0.9856733, 0)
 
-[node name="SwordAim" type="Node3D" parent="." unique_id=465440509]
+[node name="MeleeAim" type="Node3D" parent="." unique_id=465440509]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.3, -0.3)
 
-[node name="SwordPivot" type="Node3D" parent="SwordAim" unique_id=605871433]
+[node name="MeleePivot" type="Node3D" parent="MeleeAim" unique_id=605871433]
 
-[node name="SwordMesh" type="MeshInstance3D" parent="SwordAim/SwordPivot" unique_id=2085266208]
+[node name="SwordMesh" type="MeshInstance3D" parent="MeleeAim/MeleePivot" unique_id=2085266208]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 mesh = SubResource("BoxMesh_sword")
 surface_material_override/0 = SubResource("StandardMaterial3D_sword")
@@ -91,6 +94,10 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AggroArea" unique_id=104810635]
 shape = SubResource("SphereShape3D_px1sc")
 debug_color = Color(1, 0.022508273, 0.011324781, 0.41960785)
+
+[node name="BulletSpawnMarker" type="Marker3D" parent="." unique_id=1461186589]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.8763545)
 
 [connection signal="body_entered" from="AggroArea" to="." method="_on_aggro_area_body_entered"]
 [connection signal="body_exited" from="AggroArea" to="." method="_on_aggro_area_body_exited"]

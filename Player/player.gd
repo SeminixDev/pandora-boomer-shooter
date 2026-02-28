@@ -1,7 +1,6 @@
 class_name Player extends CharacterBody3D
 
 @export_group("Movement")
-
 @export var speed = 5.0
 @export var jump_velocity = 4.5
 @export var turn_speed = 0.07
@@ -10,12 +9,18 @@ class_name Player extends CharacterBody3D
 @export var max_health: int = 100
 var current_health: int = max_health
 
+@export_group("Melee (Scythe)")
+@export var melee_damage: int = 20
+@export var melee_cooldown: float = 0.6
+var time_since_last_melee: float = 0.0
+
 @export_group("Dependencies")
-
 @export var bullet_scene: PackedScene
-@onready var muzzle: Marker3D = %BulletSpawnMarker
+@onready var muzzle: Marker3D = %Muzzle
+@onready var melee_ray: RayCast3D = %MeleeRayCast
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
 
-# --- In-built ---
+# --- Node ---
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -61,6 +66,26 @@ func shoot() -> void:
 	bullet.global_position = muzzle.global_position
 	var shoot_direction = -muzzle.global_transform.basis.z.normalized()
 	bullet.set_direction(shoot_direction)
+	
+	# Bullet settings
+	bullet.set_color(Color.GREEN_YELLOW)
+	bullet.collision_mask = bullet.collision_mask - 2 # remove player from collision mask
+
+func melee() -> void:
+	if time_since_last_melee < melee_cooldown:
+		return
+		
+	time_since_last_melee = 0.0
+	
+	# Play the scythe/sword swing animation
+	if animation_player:
+		animation_player.play("melee_swing")
+		
+	# Check if the raycast is hitting an enemy
+	if melee_ray and melee_ray.is_colliding():
+		var target = melee_ray.get_collider()
+		if target.has_method("take_damage"):
+			target.take_damage(melee_damage)
 
 func take_damage(amount: int) -> void:
 	current_health -= amount

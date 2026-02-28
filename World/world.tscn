@@ -62,7 +62,7 @@ shadow_enabled = true
 
 [node name="Player" parent="." unique_id=1346923229 instance=ExtResource("1_62w18")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 10.928247)
 collision_mask = 1
 
 [node name="Enemies" type="Node" parent="." unique_id=828516008]
@@ -74,10 +74,19 @@ transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9
 transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, -3.7650156, 1, -10.566)
 
 [node name="Enemy3" parent="Enemies" unique_id=1854641441 instance=ExtResource("2_8a836")]
-transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 0, 1, -14.04306)
+transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 2.1677938, 1, -6.256089)
+is_ranged = true
+attack_range = 10.0
+attack_cooldown = 1.5
 
 [node name="Enemy4" parent="Enemies" unique_id=1538839082 instance=ExtResource("2_8a836")]
 transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 4.330942, 1, -10.566)
+
+[node name="Enemy5" parent="Enemies" unique_id=725443022 instance=ExtResource("2_8a836")]
+transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, -2.3956654, 1, -5.1152267)
+is_ranged = true
+attack_range = 10.0
+attack_cooldown = 1.5
 
 [node name="Environment" type="Node" parent="." unique_id=2127158984]
 

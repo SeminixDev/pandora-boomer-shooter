@@ -3,8 +3,23 @@
 [ext_resource type="Script" uid="uid://bu2lvhlw8hx1p" path="res://Player/player.gd" id="1_xhfnw"]
 [ext_resource type="PackedScene" uid="uid://c5o66lq5ohpk7" path="res://Weapons/bullet.tscn" id="2_4ntmi"]
 [ext_resource type="PackedScene" uid="uid://bnfi2lyx5utkf" path="res://Models/Character.glb" id="3_btcbx"]
+[ext_resource type="PackedScene" uid="uid://djp66fmc2rjja" path="res://Models/ScythePlaceholder.glb" id="3_gwnis"]
+[ext_resource type="PackedScene" uid="uid://cm07c0h45tmey" path="res://Models/GunPlaceholder.glb" id="4_k53q1"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_btcbx"]
+
+[sub_resource type="Animation" id="Animation_gwnis"]
+resource_name = "RESET"
+
+[sub_resource type="Animation" id="Animation_btcbx"]
+resource_name = "melee_swing"
+length = 0.4
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gwnis"]
+_data = {
+&"RESET": SubResource("Animation_gwnis"),
+&"melee_swing": SubResource("Animation_btcbx")
+}
 
 [node name="Player" type="CharacterBody3D" unique_id=2032895529]
 collision_layer = 2
@@ -16,12 +31,33 @@ bullet_scene = ExtResource("2_4ntmi")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=978073437]
 shape = SubResource("CylinderShape3D_btcbx")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1803648156]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -0.19)
-
-[node name="BulletSpawnMarker" type="Marker3D" parent="Camera3D" unique_id=358114221]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1359449)
-
-[node name="Character" parent="." unique_id=677145848 instance=ExtResource("3_btcbx")]
+[node name="Model" parent="." unique_id=677145848 instance=ExtResource("3_btcbx")]
 transform = Transform3D(0.615, 0, 0, 0, 0.615, 0, 0, 0, 0.615, 0, -0.9856733, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1803648156]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3933503, -0.01788935)
+fov = 80.0
+
+[node name="Scythe" type="Node3D" parent="." unique_id=1398363468]
+transform = Transform3D(-0.6832703, 0.041790605, -0.7289686, 0.06104854, 0.9981348, 0, 0.7276089, -0.04450247, -0.6845471, 0.32, -0.641, -0.597)
+
+[node name="ScytheAnimationPivot" type="Node3D" parent="Scythe" unique_id=1057816683]
+
+[node name="ScytheModel" parent="Scythe/ScytheAnimationPivot" unique_id=1176573865 instance=ExtResource("3_gwnis")]
+transform = Transform3D(0.20000002, 0, 0, 0, 0.2, 0, 0, 0, 0.19999997, 0, 0, 0)
+
+[node name="Gun" type="Node3D" parent="." unique_id=1506569778]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.368, 0, -0.615)
+
+[node name="GunAnimationPivot" type="Node3D" parent="Gun" unique_id=160218141]
+
+[node name="GunModel" parent="Gun/GunAnimationPivot" unique_id=806565796 instance=ExtResource("4_k53q1")]
+transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0, 0, 0)
+
+[node name="Muzzle" type="Marker3D" parent="Gun/GunAnimationPivot" unique_id=358114221]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -5.9604645e-08, 0.17836101, 0.75714844)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=651748212]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_gwnis")

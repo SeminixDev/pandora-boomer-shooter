@@ -6,15 +6,18 @@ extends CharacterBody3D
 var current_health: int
 
 @export_group("Attack")
+@export var is_ranged: bool = false
 @export var attack_damage: int = 10
 @export var attack_range: float = 2.0
 @export var attack_cooldown: float = 1.0
 var time_since_last_attack: float = 0.0
 
 @export_group("Dependencies")
+@export var bullet_scene: PackedScene
 @onready var aggro_area: Area3D = %AggroArea
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
-@onready var sword_aim: Node3D = $SwordAim
+@onready var sword_aim: Node3D = %MeleeAim
+@onready var bullet_spawn_marker: Marker3D = %BulletSpawnMarker
 var target: Node3D = null
 
 # --- Common ---
@@ -68,11 +71,14 @@ func move_toward_target() -> void:
 		velocity.z = 0
 		
 		if time_since_last_attack >= attack_cooldown:
-			attack_target()
+			if is_ranged:
+				ranged_attack()
+			else:
+				melee_attack()
 
 # --- Attacking ---
 
-func attack_target() -> void:
+func melee_attack() -> void:
 	# Rotate the sword arm specifically to point exactly at the player's core
 	if is_instance_valid(target) and is_instance_valid(sword_aim):
 		var aim_position = target.global_position
@@ -87,7 +93,28 @@ func attack_target() -> void:
 	
 	if animation_player:
 		animation_player.play("attack_swing")
+	
+func ranged_attack() -> void:
+	if bullet_scene and is_instance_valid(target):
+		time_since_last_attack = 0.0
+		
+		# Fallback spawn position is chest height if no marker exists
+		var spawn_pos = global_position + Vector3(0, 1.0, 0)
+		if bullet_spawn_marker:
+			spawn_pos = bullet_spawn_marker.global_position
+		
+		var bullet = bullet_scene.instantiate()
 
+		get_tree().current_scene.add_child(bullet)
+		
+		bullet.set_color(Color.ORANGE_RED)
+		
+		bullet.global_position = spawn_pos
+		var aim_target = target.global_position + Vector3(0, 1.0, 0)
+		var shoot_dir = spawn_pos.direction_to(aim_target)
+		bullet.set_direction(shoot_dir)
+		
+		print_debug("Enemy fired a projectile!")
 
 # --- Damage ---
 

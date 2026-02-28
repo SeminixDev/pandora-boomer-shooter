@@ -6,6 +6,8 @@ class_name Bullet extends Area3D
 
 var direction: Vector3 = Vector3.ZERO
 
+@onready var mesh = %MeshInstance3D
+
 func _ready() -> void:
 	# Connect the collision signal
 	body_entered.connect(_on_body_entered)
@@ -29,3 +31,11 @@ func _on_body_entered(body: Node3D) -> void:
 func set_direction(dir: Vector3) -> void:
 	direction = dir
 	look_at(position + direction, Vector3.UP)
+
+func set_color(color: Color) -> void:
+	if not is_node_ready():
+		await ready
+	
+	var mat = mesh.get_active_material(0).duplicate()
+	mat.albedo_color = color
+	mesh.set_surface_override_material(0, mat)
