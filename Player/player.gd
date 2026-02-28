@@ -7,7 +7,7 @@ var current_state: State = State.NORMAL
 @export var speed : float = 10.0
 @export var acceleration : float = 100.0
 @export var friction : float = 100.0
-@export var turn_speed : float = 3.0 # Radians per second
+@export var turn_speed : float = 2.0 # Radians per second
 
 @export_subgroup("Attack Movement Tuning")
 @export var quick_lunge_force: float = 20.0
@@ -65,13 +65,15 @@ func _physics_process(delta: float) -> void:
 		State.QUICK_ATTACK:
 			move(delta, 0.8) # Move at 30% speed
 		State.HEAVY_LEAP:
-			move(delta, 0.5) # Slight air control while leaping
+			move(delta, 0.8) # Slight air control while leaping
 			if velocity.y <= 0: # Reached apex of leap
 				start_heavy_slam()
 		State.HEAVY_SLAM:
+			turn(delta, 0.3)
 			handle_heavy_slam(delta)
 		State.HEAVY_SLAM_RECOVERY:
 			# Freeze horizontal movement entirely
+			turn(delta, 0.3)
 			velocity.x = 0
 			velocity.z = 0
 			move_and_slide() # Keeps gravity/floor collision active
@@ -105,33 +107,34 @@ func handle_inputs(delta: float) -> void:
 
 # --- Movement ---
 
-func move(delta: float, speed_multiplier: float = 1.0) -> void:
-	
-	# Handle Rotation (Turning)
+func turn(delta: float, speed_multiplier: float = 1.0) -> void:
 	if Input.is_action_pressed("left2"):
-		rotate_y(turn_speed * delta)
+		rotate_y(turn_speed * delta * speed_multiplier)
 	if Input.is_action_pressed("right2"):
-		rotate_y(-turn_speed * delta)
+		rotate_y(-turn_speed * delta * speed_multiplier)
 
+func move(delta: float, speed_multiplier: float = 1.0) -> void:
+	turn(delta)
+	
 	# Build the Movement Direction
 	var input_direction := Vector3.ZERO
-
+	
 	# Forward/Back (Z-axis)
 	if Input.is_action_pressed("up1"):
 		input_direction -= transform.basis.z
 	if Input.is_action_pressed("down1"):
 		input_direction += transform.basis.z
-
+	
 	# Strafing (X-axis)
 	if Input.is_action_pressed("left1"):
 		input_direction -= transform.basis.x
 	if Input.is_action_pressed("right1"):
 		input_direction += transform.basis.x
-
+	
 	# Normalizing prevents diagonal speed boost
 	if input_direction.length() > 0:
 		input_direction = input_direction.normalized()
-
+	
 	# Apply Acceleration & Friction
 	if input_direction != Vector3.ZERO:
 		var target_velocity = input_direction * (speed * speed_multiplier)
