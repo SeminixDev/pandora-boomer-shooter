@@ -59,7 +59,7 @@ _data = {
 
 [node name="Enemy" type="CharacterBody3D" unique_id=2141865840]
 collision_layer = 4
-collision_mask = 3
+collision_mask = 17
 script = ExtResource("1_2pb1h")
 bullet_scene = ExtResource("2_am0pq")
 
