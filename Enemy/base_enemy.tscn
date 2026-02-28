@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://dshhth2hutp67"]
+
+[ext_resource type="Script" uid="uid://biagln1y5nsbd" path="res://Enemy/base_enemy.gd" id="1_2pb1h"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_px1sc"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rfmx6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rfmx6"]
+albedo_color = Color(0.1917023, 0.005311304, 0.061031997, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qsll7"]
+material = SubResource("StandardMaterial3D_rfmx6")
+
+[node name="Enemy" type="CharacterBody3D" unique_id=2141865840]
+collision_layer = 4
+collision_mask = 17
+script = ExtResource("1_2pb1h")
+
+[node name="MeleeAim" type="Node3D" parent="." unique_id=465440509]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.3, -0.3)
+
+[node name="MeleePivot" type="Node3D" parent="MeleeAim" unique_id=605871433]
+
+[node name="AggroArea" type="Area3D" parent="." unique_id=305742766]
+unique_name_in_owner = true
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 0, 0, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AggroArea" unique_id=104810635]
+shape = SubResource("SphereShape3D_px1sc")
+debug_color = Color(1, 0.022508273, 0.011324781, 0.41960785)
+
+[node name="BulletSpawnMarker" type="Marker3D" parent="." unique_id=1461186589]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.8763545)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1782547481]
+shape = SubResource("CylinderShape3D_rfmx6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1751315410]
+mesh = SubResource("CylinderMesh_qsll7")
+
+[connection signal="body_entered" from="AggroArea" to="." method="_on_aggro_area_body_entered"]
+[connection signal="body_exited" from="AggroArea" to="." method="_on_aggro_area_body_exited"]

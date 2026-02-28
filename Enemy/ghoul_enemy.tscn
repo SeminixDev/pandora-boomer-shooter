@@ -1,0 +1,154 @@
+[gd_scene format=3 uid="uid://kpirgxt8ghgc"]
+
+[ext_resource type="PackedScene" uid="uid://dshhth2hutp67" path="res://Enemy/base_enemy.tscn" id="1_xscih"]
+[ext_resource type="Script" uid="uid://ckinxgxbgdptb" path="res://Enemy/ghoul_enemy.gd" id="2_mty0q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mty0q"]
+albedo_color = Color(0.20988762, 0.29322582, 0.12712938, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_xscih"]
+material = SubResource("StandardMaterial3D_mty0q")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xscih"]
+radius = 1.2030392
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xscih"]
+albedo_color = Color(0.35481775, 0.48127037, 0.23012328, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mty0q"]
+material = SubResource("StandardMaterial3D_xscih")
+
+[sub_resource type="Animation" id="Animation_mty0q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeleeAim/MeleePivot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeleeAim/MeleePivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ccid1"]
+resource_name = "melee_swing"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeleeAim/MeleePivot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.2), Vector3(-0.47, 0, -2), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeleeAim/MeleePivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.2617994, 0, 0), Vector3(-0.2617994, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.25, 0.33333334, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [true],
+"method": &"set_hitbox_active"
+}, {
+"args": [false],
+"method": &"set_hitbox_active"
+}, {
+"args": [],
+"method": &"finish_attack"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dcmbf"]
+_data = {
+&"RESET": SubResource("Animation_mty0q"),
+&"melee_swing": SubResource("Animation_ccid1")
+}
+
+[node name="Ghoul" unique_id=2141865840 instance=ExtResource("1_xscih")]
+script = ExtResource("2_mty0q")
+attack_range = 3.0
+attack_damage = 15
+attack_cooldown = 1.5
+
+[node name="MeleeAim" parent="." index="0" unique_id=465440509]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.60819757, 0.3, -0.52467924)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeleeAim/MeleePivot" parent_id_path=PackedInt32Array(605871433) index="0" unique_id=1224933079]
+transform = Transform3D(0.345, 0, 0, 0, 0.345, 0, 0, 0, 0.345, 0, 0, 0)
+mesh = SubResource("SphereMesh_xscih")
+
+[node name="AttackHitbox" type="Area3D" parent="MeleeAim/MeleePivot" parent_id_path=PackedInt32Array(605871433) index="1" unique_id=598048]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeleeAim/MeleePivot/AttackHitbox" index="0" unique_id=1142170260]
+transform = Transform3D(0.345, 0, 0, 0, 0.345, 0, 0, 0, 0.345, 0, 0, 0)
+shape = SubResource("SphereShape3D_xscih")
+
+[node name="MeshInstance3D" parent="." index="4" unique_id=1751315410]
+mesh = SubResource("CylinderMesh_mty0q")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5" unique_id=400792168]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_dcmbf")

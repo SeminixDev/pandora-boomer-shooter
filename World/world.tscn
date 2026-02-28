@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ckx5xm6ryj5u1"]
 
 [ext_resource type="PackedScene" uid="uid://bf5eg8wvt0fvu" path="res://Player/player.tscn" id="1_62w18"]
-[ext_resource type="PackedScene" uid="uid://dshhth2hutp67" path="res://Enemy/enemy.tscn" id="2_8a836"]
+[ext_resource type="PackedScene" uid="uid://kpirgxt8ghgc" path="res://Enemy/ghoul_enemy.tscn" id="2_j8job"]
 [ext_resource type="PackedScene" uid="uid://btxa0o25fwpub" path="res://Models/Mausoleum.glb" id="3_j8job"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fj7yv"]
@@ -39,61 +39,24 @@ max_health = 9999
 
 [node name="Enemies" type="Node" parent="." unique_id=828516008]
 
-[node name="Enemy" parent="Enemies" unique_id=2141865840 instance=ExtResource("2_8a836")]
-transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 35.84207, -1.9999063, -9.366531)
-max_health = 100
+[node name="Ghoul" parent="Enemies" unique_id=2141865840 instance=ExtResource("2_j8job")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.828323, -2.1205542, -5.118181)
 
-[node name="Enemy2" parent="Enemies" unique_id=1120158493 instance=ExtResource("2_8a836")]
-transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 32.077057, -1.9999063, -9.366531)
-max_health = 100
+[node name="Ghoul2" parent="Enemies" unique_id=87174558 instance=ExtResource("2_j8job")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.16623, -2.1205542, 4.6774845)
 
-[node name="Enemy4" parent="Enemies" unique_id=1538839082 instance=ExtResource("2_8a836")]
-transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 40.17301, -1.9999063, -9.366531)
-max_health = 100
+[node name="Ghoul3" parent="Enemies" unique_id=1874486684 instance=ExtResource("2_j8job")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.734074, -2.1205542, -0.9497938)
 
-[node name="Enemy5" parent="Enemies" unique_id=301871210 instance=ExtResource("2_8a836")]
-transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 38.46579, -1.9999063, -4.4822245)
-max_health = 100
+[node name="Ghoul4" parent="Enemies" unique_id=16315766 instance=ExtResource("2_j8job")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.43145, -2.1205542, 1.3184996)
 
-[node name="Enemy6" parent="Enemies" unique_id=888079195 instance=ExtResource("2_8a836")]
-transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 41.30101, -1.9999063, -2.9484787)
-max_health = 100
-
-[node name="Enemy7" parent="Enemies" unique_id=1155643612 instance=ExtResource("2_8a836")]
-transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 34.77298, -1.9999063, -3.7427254)
-max_health = 100
-
-[node name="Enemy8" parent="Enemies" unique_id=106824557 instance=ExtResource("2_8a836")]
-transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 30.45192, -1.9999063, -2.5967379)
-max_health = 100
-
-[node name="Enemy9" parent="Enemies" unique_id=730075770 instance=ExtResource("2_8a836")]
-transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 26.724072, -1.9999063, 0.79446864)
-max_health = 100
-
-[node name="Enemy10" parent="Enemies" unique_id=380906548 instance=ExtResource("2_8a836")]
-transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 38.723785, -1.9999063, 2.7944298)
-max_health = 100
-
-[node name="Enemy11" parent="Enemies" unique_id=786571428 instance=ExtResource("2_8a836")]
-transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 45.311775, -1.9999063, -1.290514)
-max_health = 100
-
-[node name="Enemy12" parent="Enemies" unique_id=1005298635 instance=ExtResource("2_8a836")]
-transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 36.042244, -1.9999063, -0.21715164)
-max_health = 100
-
-[node name="Enemy13" parent="Enemies" unique_id=817414930 instance=ExtResource("2_8a836")]
-transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 29.795773, -1.9999063, -7.5721455)
-max_health = 100
-
-[node name="Enemy14" parent="Enemies" unique_id=730269759 instance=ExtResource("2_8a836")]
-transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 44.795773, -1.9999063, -6.5721455)
-max_health = 100
+[node name="Ghoul5" parent="Enemies" unique_id=1312230064 instance=ExtResource("2_j8job")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.175694, -2.1205542, -2.521579)
 
 [node name="Environment" type="Node" parent="." unique_id=2127158984]
 
-[node name="Mausoleum" parent="Environment" unique_id=110957415 instance=ExtResource("3_j8job")]
+[node name="Mausoleum" parent="Environment" unique_id=1984913397 instance=ExtResource("3_j8job")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 90, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Environment" unique_id=581760606]
