@@ -165,8 +165,12 @@ func take_damage(amount: int) -> void:
 	if current_state == State.HEAVY_LEAP or current_state == State.HEAVY_SLAM:
 		return
 	
+	animation_player.play("red_screen_flash")
 	current_health -= amount
 	print_debug("Player took damage. Current Health: ", current_health)
+	
+	if current_state == State.NORMAL:
+		velocity = Vector3.ZERO
 	
 	if current_health <= 0:
 		die()

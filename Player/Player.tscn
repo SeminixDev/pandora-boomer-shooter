@@ -264,15 +264,39 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_gwnis"]
 resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/RedFlash:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 0)]
+}
 
-[sub_resource type="Animation" id="Animation_btcbx"]
-resource_name = "melee_swing"
+[sub_resource type="Animation" id="Animation_gu6f8"]
+resource_name = "red_screen_flash"
 length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/RedFlash:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.033333335, 0.08, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 0), Color(1, 0, 0, 0), Color(1, 0, 0, 0), Color(1, 0, 0, 0.6156863), Color(1, 0, 0, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gwnis"]
 _data = {
 &"RESET": SubResource("Animation_gwnis"),
-&"melee_swing": SubResource("Animation_btcbx")
+&"red_screen_flash": SubResource("Animation_gu6f8")
 }
 
 [node name="Player" type="CharacterBody3D" unique_id=2032895529]
@@ -285,6 +309,16 @@ heavy_leap_upward_force = 10.0
 heavy_slam_downward_force = 20.0
 heavy_slam_speed_multiplier = 1.0
 ranged_cooldown = 0.11
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=990979104]
+
+[node name="RedFlash" type="ColorRect" parent="CanvasLayer" unique_id=940153024]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=978073437]
 shape = SubResource("CylinderShape3D_btcbx")
