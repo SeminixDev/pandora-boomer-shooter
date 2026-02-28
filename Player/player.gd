@@ -10,13 +10,21 @@ class_name Player extends CharacterBody3D
 @export var max_health: int = 100
 var current_health: int = max_health
 
-@export_group("Melee (Scythe)")
+@export_group("Melee Attack")
 @export var melee_damage: int = 20
 @export var melee_cooldown: float = 0.6
 var time_since_last_melee: float = 0.0
 
+@export_group("Ranged Attack")
+@export var ranged_cooldown: float = 0.1
+@export var ranged_reload_time: float = 1.0
+@export var max_shots: int = 2
+var time_since_last_ranged: float = 0.0
+var shots_left: int = 2
+
 @export_group("Dependencies")
-@export var bullet_scene: PackedScene
+@onready var gun: Gun = %Gun
+@onready var scythe: Scythe = %Scythe
 @onready var muzzle: Marker3D = %Muzzle
 @onready var melee_ray: RayCast3D = %MeleeRayCast
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
@@ -24,16 +32,17 @@ var time_since_last_melee: float = 0.0
 # --- Node ---
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
+	# Add gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
 	move(delta)
 	
+	time_since_last_melee += delta
+	time_since_last_ranged += delta
+	
 	if Input.is_action_just_pressed("up2"):
 		shoot()
-	
-	time_since_last_melee += delta
 	if Input.is_action_just_pressed("down2"):
 		melee()
 
@@ -42,7 +51,6 @@ func _physics_process(delta: float) -> void:
 
 func move(delta: float) -> void:
 	# 1. Handle Rotation (Turning)
-	# Tied to delta for consistent speed regardless of FPS
 	if Input.is_action_pressed("left2"):
 		rotate_y(turn_speed * delta)
 	if Input.is_action_pressed("right2"):
@@ -63,8 +71,7 @@ func move(delta: float) -> void:
 	if Input.is_action_pressed("right1"):
 		input_direction += transform.basis.x
 
-	# Normalizing prevents "diagonal speed boost" 
-	# (where moving forward + side makes you 1.4x faster)
+	# Normalizing prevents diagonal speed boost
 	if input_direction.length() > 0:
 		input_direction = input_direction.normalized()
 
@@ -81,24 +88,22 @@ func move(delta: float) -> void:
 	move_and_slide()
 
 func shoot() -> void:
-	if not bullet_scene:
-		push_warning("Bullet scene is not assigned to the Player!")
+	# Handle cooldown & reload
+	if shots_left <= 0 and time_since_last_ranged < ranged_reload_time:
+		return	
+	if time_since_last_ranged < ranged_cooldown:
 		return
 	
-	# Spawn the bullet
-	var bullet: Bullet = bullet_scene.instantiate()
-	get_tree().current_scene.add_child(bullet)
-	
-	# Set bullet transform
-	bullet.global_position = muzzle.global_position
-	var shoot_direction = -muzzle.global_transform.basis.z.normalized()
-	bullet.set_direction(shoot_direction)
-	
-	# Bullet settings
-	bullet.set_color(Color.GREEN_YELLOW)
-	bullet.collision_mask = bullet.collision_mask - 2 # remove player from collision mask
+	# Shoot
+	if shots_left <= 0:
+		shots_left = max_shots
+	shots_left -= 1
+	time_since_last_ranged = 0.0
+	gun.shoot()
 
 func melee() -> void:
+	
+	# Handle cooldown
 	if time_since_last_melee < melee_cooldown:
 		return
 		

@@ -4,7 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://c5o66lq5ohpk7" path="res://Weapons/bullet.tscn" id="2_4ntmi"]
 [ext_resource type="PackedScene" uid="uid://bnfi2lyx5utkf" path="res://Models/Character.glb" id="3_btcbx"]
 [ext_resource type="PackedScene" uid="uid://djp66fmc2rjja" path="res://Models/ScythePlaceholder.glb" id="3_gwnis"]
+[ext_resource type="Script" uid="uid://crqq814bfu8qq" path="res://Weapons/scythe.gd" id="4_fhl08"]
 [ext_resource type="PackedScene" uid="uid://cm07c0h45tmey" path="res://Models/GunPlaceholder.glb" id="4_k53q1"]
+[ext_resource type="Script" uid="uid://ch35etn7t2b84" path="res://Weapons/gun.gd" id="6_vtle1"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_btcbx"]
 
@@ -26,7 +28,6 @@ collision_layer = 2
 collision_mask = 541
 script = ExtResource("1_xhfnw")
 friction = 80.0
-bullet_scene = ExtResource("2_4ntmi")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=978073437]
 shape = SubResource("CylinderShape3D_btcbx")
@@ -39,7 +40,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3933503, -0.01788935)
 fov = 80.0
 
 [node name="Scythe" type="Node3D" parent="." unique_id=1398363468]
+unique_name_in_owner = true
 transform = Transform3D(-0.6832703, 0.041790605, -0.7289686, 0.06104854, 0.9981348, 0, 0.7276089, -0.04450247, -0.6845471, 0.32, -0.641, -0.597)
+script = ExtResource("4_fhl08")
 
 [node name="ScytheAnimationPivot" type="Node3D" parent="Scythe" unique_id=1057816683]
 
@@ -47,7 +50,10 @@ transform = Transform3D(-0.6832703, 0.041790605, -0.7289686, 0.06104854, 0.99813
 transform = Transform3D(0.20000002, 0, 0, 0, 0.2, 0, 0, 0, 0.19999997, 0, 0, 0)
 
 [node name="Gun" type="Node3D" parent="." unique_id=1506569778]
+unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.368, 0, -0.615)
+script = ExtResource("6_vtle1")
+bullet_scene = ExtResource("2_4ntmi")
 
 [node name="GunAnimationPivot" type="Node3D" parent="Gun" unique_id=160218141]
 
