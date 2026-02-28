@@ -1,9 +1,13 @@
 extends CharacterBody3D
 
 @export_group("Stats")
-@export var speed: float = 3.5
 @export var max_health: int = 30
 var current_health: int = max_health
+
+@export_group("Movement")
+@export var speed: float = 3.5
+@export var acceleration: float = 50.0
+@export var friction: float = 50.0
 
 @export_group("Attack")
 @export var is_ranged: bool = false
@@ -32,48 +36,60 @@ func _physics_process(delta: float) -> void:
 	
 	# Move toward target if exists
 	if target:
-		move_toward_target()
+		move_toward_target(delta)
+		
+
+# --- Movement --- 
+
+func move_toward_target(delta: float) -> void:
+	var distance_to_target = global_position.distance_to(target.global_position)
+	var ai_direction := Vector3.ZERO
+	
+	# If out of range, move towards the player
+	if distance_to_target > attack_range:
+		# Get the vector pointing at the player
+		ai_direction = global_position.direction_to(target.global_position)
+		ai_direction.y = 0 # Keep it strictly horizontal
+		ai_direction = ai_direction.normalized()
+		
+		# Handle Facing (Look at the player)
+		var look_target = target.global_position
+		look_target.y = global_position.y
+		if global_position.distance_to(look_target) > 0.1:
+			look_at(look_target, Vector3.UP)
+		var direction = global_position.direction_to(target.global_position)
+	
+	#  Apply movement physics
+	if ai_direction != Vector3.ZERO:
+		# Accelerate toward the player
+		var target_velocity = ai_direction * speed
+		velocity.x = move_toward(velocity.x, target_velocity.x, acceleration * delta)
+		velocity.z = move_toward(velocity.z, target_velocity.z, acceleration * delta)
+	else:
+		# Snappy Stop (In range or lost target)
+		# Use friction for a slight slide, or set to 0 for an instant halt
+		velocity.x = move_toward(velocity.x, 0, friction * delta)
+		velocity.z = move_toward(velocity.z, 0, friction * delta)
+		
+		# Attack Logic (Only triggers when stopped/in range)
+		if distance_to_target <= attack_range:
+			handle_attack_logic()
 	
 	# Return if player killed & scene was reloaded
 	if not is_inside_tree():
 		return
 	
-	# Physics
 	move_and_slide()
 
-# --- Movement --- 
-func move_toward_target() -> void:
-	var distance_to_target = global_position.distance_to(target.global_position)
-	
-	# If out of range, move towards the player
-	if distance_to_target > attack_range:
-		var direction = global_position.direction_to(target.global_position)
-		
-		# Keep movement horizontal
-		direction.y = 0 
-		direction = direction.normalized()
-		
-		velocity.x = direction.x * speed
-		velocity.z = direction.z * speed
-		
-		# Look at the player but lock vertical tilt
-		var look_target = target.global_position
-		look_target.y = global_position.y
-		if global_position.distance_to(look_target) > 0.1:
-			look_at(look_target, Vector3.UP)
-			
-	# If in range, stop and attack
-	else:
-		velocity.x = 0
-		velocity.z = 0
-		
-		if time_since_last_attack >= attack_cooldown:
-			if is_ranged:
-				ranged_attack()
-			else:
-				melee_attack()
-
 # --- Attacking ---
+
+func handle_attack_logic():
+	if time_since_last_attack >= attack_cooldown:
+		if is_ranged:
+			ranged_attack()
+		else:
+			melee_attack()
+		time_since_last_attack = 0
 
 func melee_attack() -> void:
 	# Rotate the sword arm specifically to point exactly at the player's core
