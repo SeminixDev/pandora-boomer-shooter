@@ -3,7 +3,7 @@ extends CharacterBody3D
 @export_group("Stats")
 @export var speed: float = 3.5
 @export var max_health: int = 30
-var current_health: int
+var current_health: int = max_health
 
 @export_group("Attack")
 @export var is_ranged: bool = false
@@ -21,9 +21,6 @@ var time_since_last_attack: float = 0.0
 var target: Node3D = null
 
 # --- Common ---
-
-func _ready() -> void:
-	current_health = max_health
 
 func _physics_process(delta: float) -> void:
 	# Add gravity
@@ -114,13 +111,13 @@ func ranged_attack() -> void:
 		var shoot_dir = spawn_pos.direction_to(aim_target)
 		bullet.set_direction(shoot_dir)
 		
-		print_debug("Enemy fired a projectile!")
+		#print_debug("Enemy fired a projectile!")
 
 # --- Damage ---
 
 func take_damage(amount: int) -> void:
 	current_health -= amount
-	print_debug("Enemy took damage. Current Health: ", current_health)
+	#print_debug("Enemy took damage. Current Health: ", current_health)
 	
 	if current_health <= 0:
 		die()
@@ -134,9 +131,9 @@ func die() -> void:
 func _on_aggro_area_body_entered(body: Node3D) -> void:
 	if body is Player:
 		target = body
-		print_debug("Enemy spotted the player")
+		#print_debug("Enemy spotted the player")
 
 func _on_aggro_area_body_exited(body: Node3D) -> void:
 	if body == target:
 		target = null
-		print_debug("Player escaped the enemy's range")
+		#print_debug("Player escaped the enemy's range")

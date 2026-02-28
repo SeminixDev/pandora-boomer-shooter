@@ -1,10 +1,10 @@
 class_name Player extends CharacterBody3D
 
 @export_group("Movement")
-@export var speed := 10.0
-@export var acceleration := 100.0
-@export var friction := 100.0
-@export var turn_speed := 3.0 # Radians per second07
+@export var speed : float = 10.0
+@export var acceleration : float = 100.0
+@export var friction : float = 100.0
+@export var turn_speed : float = 3.0 # Radians per second
 
 @export_group("Stats")
 @export var max_health: int = 100
@@ -109,15 +109,7 @@ func melee() -> void:
 		
 	time_since_last_melee = 0.0
 	
-	# Play the scythe/sword swing animation
-	if animation_player:
-		animation_player.play("melee_swing")
-		
-	# Check if the raycast is hitting an enemy
-	if melee_ray and melee_ray.is_colliding():
-		var target = melee_ray.get_collider()
-		if target.has_method("take_damage"):
-			target.take_damage(melee_damage)
+	animation_player.play("melee_swing")
 
 func take_damage(amount: int) -> void:
 	current_health -= amount
