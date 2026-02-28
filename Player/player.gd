@@ -6,10 +6,16 @@ class_name Player extends CharacterBody3D
 @export var jump_velocity = 4.5
 @export var turn_speed = 0.07
 
+@export_group("Stats")
+@export var max_health: int = 100
+var current_health: int
+
 @export_group("Dependencies")
 
 @export var bullet_scene: PackedScene
 @onready var muzzle: Marker3D = %BulletSpawnMarker
+
+# --- In-built ---
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -24,6 +30,8 @@ func _physics_process(delta: float) -> void:
 		shoot()
 	
 	move()
+
+# --- Controls ---
 
 func move() -> void:
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -49,8 +57,19 @@ func shoot() -> void:
 	var bullet: Bullet = bullet_scene.instantiate()
 	get_tree().current_scene.add_child(bullet)
 	
-	# Set bullet transform up
+	# Set bullet transform
 	bullet.global_position = muzzle.global_position
 	var shoot_direction = -muzzle.global_transform.basis.z.normalized()
 	bullet.set_direction(shoot_direction)
+
+func take_damage(amount: int) -> void:
+	current_health -= amount
+	print_debug("Player took damage. Current Health: ", current_health)
 	
+	if current_health <= 0:
+		die()
+
+func die() -> void:
+	print_debug("Player died! Restarting level...")
+	
+	get_tree().reload_current_scene()

@@ -6,8 +6,9 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_px1sc"]
 radius = 0.44921875
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_px1sc"]
+
 [node name="Enemy" type="CharacterBody3D" unique_id=2141865840]
-transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 0, 0, 0)
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_2pb1h")
@@ -18,3 +19,16 @@ shape = SubResource("CylinderShape3D_px1sc")
 
 [node name="Character" parent="." unique_id=677145848 instance=ExtResource("2_px1sc")]
 transform = Transform3D(0.615, 0, 0, 0, 0.615, 0, 0, 0, 0.615, 0, -0.9856733, 0)
+
+[node name="AggroArea" type="Area3D" parent="." unique_id=305742766]
+unique_name_in_owner = true
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 0, 0, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AggroArea" unique_id=104810635]
+shape = SubResource("SphereShape3D_px1sc")
+debug_color = Color(1, 0.022508273, 0.011324781, 0.41960785)
+
+[connection signal="body_entered" from="AggroArea" to="." method="_on_aggro_area_body_entered"]
+[connection signal="body_exited" from="AggroArea" to="." method="_on_aggro_area_body_exited"]
