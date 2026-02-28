@@ -32,6 +32,11 @@ func _physics_process(delta: float) -> void:
 	if target:
 		move_toward_target()
 	
+	# Return if player killed & scene was reloaded
+	if not is_inside_tree():
+		return
+	
+	# Physics
 	move_and_slide()
 
 # --- Movement --- 

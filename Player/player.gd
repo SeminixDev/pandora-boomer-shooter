@@ -8,7 +8,7 @@ class_name Player extends CharacterBody3D
 
 @export_group("Stats")
 @export var max_health: int = 100
-var current_health: int
+var current_health: int = max_health
 
 @export_group("Dependencies")
 
@@ -71,5 +71,4 @@ func take_damage(amount: int) -> void:
 
 func die() -> void:
 	print_debug("Player died! Restarting level...")
-	
 	get_tree().reload_current_scene()
