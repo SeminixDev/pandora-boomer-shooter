@@ -10,6 +10,17 @@
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_btcbx"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vtle1"]
+radius = 0.31884766
+height = 1.7662898
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_od3ui"]
+radius = 0.28808594
+height = 0.86782837
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vtle1"]
+size = Vector3(4.5080833, 1.9420166, 4.860382)
+
 [sub_resource type="Animation" id="Animation_gwnis"]
 resource_name = "RESET"
 
@@ -35,7 +46,8 @@ shape = SubResource("CylinderShape3D_btcbx")
 [node name="Model" parent="." unique_id=677145848 instance=ExtResource("3_btcbx")]
 transform = Transform3D(0.615, 0, 0, 0, 0.615, 0, 0, 0, 0.615, 0, -0.9856733, 0)
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1803648156]
+[node name="MainCamera" type="Camera3D" parent="." unique_id=1803648156]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3933503, -0.01788935)
 fov = 80.0
 
@@ -48,6 +60,28 @@ script = ExtResource("4_fhl08")
 
 [node name="ScytheModel" parent="Scythe/ScytheAnimationPivot" unique_id=1176573865 instance=ExtResource("3_gwnis")]
 transform = Transform3D(0.20000002, 0, 0, 0, 0.2, 0, 0, 0, 0.19999997, 0, 0, 0)
+
+[node name="PrimaryHitbox" type="Area3D" parent="Scythe/ScytheAnimationPivot/ScytheModel" unique_id=1976545439]
+unique_name_in_owner = true
+transform = Transform3D(3.16575, -1.7546598, -3.44952, -3.62116, 0.22971842, -3.4401212, 1.365732, 4.6763673, -1.1253346, -0.24932599, 6.174591, 0.5876745)
+
+[node name="HandleCollisionShape" type="CollisionShape3D" parent="Scythe/ScytheAnimationPivot/ScytheModel/PrimaryHitbox" unique_id=422786101]
+transform = Transform3D(0.37520602, -0.40468055, 0.058994323, -0.078880966, 0.006945151, 0.5493214, -0.40127754, -0.37975034, -0.052821115, 0.069464624, -0.35262376, 0.15466051)
+shape = SubResource("CapsuleShape3D_vtle1")
+
+[node name="BladeCollisionShape" type="CollisionShape3D" parent="Scythe/ScytheAnimationPivot/ScytheModel/PrimaryHitbox" unique_id=839447474]
+transform = Transform3D(0.89563036, 0.4048227, -0.18428183, -0.3628108, 0.9045801, 0.22383621, 0.25731027, -0.13361642, 0.9570459, -0.06731063, -0.10701382, -0.055948198)
+shape = SubResource("CapsuleShape3D_od3ui")
+
+[node name="ScytheAnimationPlayer" type="AnimationPlayer" parent="Scythe" unique_id=261785411]
+
+[node name="HeavyHitbox" type="Area3D" parent="." unique_id=1296783518]
+unique_name_in_owner = true
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.4863567)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HeavyHitbox" unique_id=1109605369]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.99999946, -0.03209116, 0.132, -3.0865748)
+shape = SubResource("BoxShape3D_vtle1")
 
 [node name="Gun" type="Node3D" parent="." unique_id=1506569778]
 unique_name_in_owner = true

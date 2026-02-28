@@ -24,6 +24,10 @@ var time_since_last_attack: float = 0.0
 @onready var bullet_spawn_marker: Marker3D = %BulletSpawnMarker
 var target: Node3D = null
 
+# State
+var is_stunned: bool = false
+var stun_timer: float = 0.0
+
 # --- Common ---
 
 func _physics_process(delta: float) -> void:
@@ -31,13 +35,21 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
+	if is_stunned:
+		stun_timer -= delta
+		if stun_timer <= 0:
+			is_stunned = false
+		
+		# Still process movement so they fall and get knocked back, but skip AI logic
+		move_and_slide()
+		return
+	
 	# Increment attack timer
 	time_since_last_attack += delta
 	
 	# Move toward target if exists
 	if target:
 		move_toward_target(delta)
-		
 
 # --- Movement --- 
 
@@ -129,11 +141,22 @@ func ranged_attack() -> void:
 		
 		#print_debug("Enemy fired a projectile!")
 
-# --- Damage ---
+# --- Damage & Status ---
 
+# Wrapper for normal damage without knockback/stun
 func take_damage(amount: int) -> void:
+	apply_hit(amount, Vector3.ZERO, 0.0)
+
+# New advanced hit function
+func apply_hit(amount: int, knockback: Vector3, stun_duration: float) -> void:
 	current_health -= amount
-	#print_debug("Enemy took damage. Current Health: ", current_health)
+	
+	if stun_duration > 0:
+		is_stunned = true
+		stun_timer = stun_duration
+	
+	if knockback != Vector3.ZERO:
+		velocity = knockback
 	
 	if current_health <= 0:
 		die()
