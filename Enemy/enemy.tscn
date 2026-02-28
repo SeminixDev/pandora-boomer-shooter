@@ -6,8 +6,6 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_px1sc"]
 radius = 0.44921875
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_px1sc"]
-
 [sub_resource type="BoxMesh" id="BoxMesh_sword"]
 size = Vector3(0.1, 0.8, 0.1)
 
@@ -19,10 +17,11 @@ roughness = 0.3
 [sub_resource type="Animation" id="Animation_idle"]
 resource_name = "RESET"
 length = 0.001
+step = 0.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SwordPivot:rotation")
+tracks/0/path = NodePath("SwordAim/SwordPivot:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -35,10 +34,11 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_swing"]
 resource_name = "attack_swing"
 length = 0.4
+step = 1.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SwordPivot:rotation")
+tracks/0/path = NodePath("SwordAim/SwordPivot:rotation")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -50,9 +50,11 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sword"]
 _data = {
-"RESET": SubResource("Animation_idle"),
-"attack_swing": SubResource("Animation_swing")
+&"RESET": SubResource("Animation_idle"),
+&"attack_swing": SubResource("Animation_swing")
 }
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_px1sc"]
 
 [node name="Enemy" type="CharacterBody3D" unique_id=2141865840]
 collision_layer = 4
@@ -66,18 +68,19 @@ shape = SubResource("CylinderShape3D_px1sc")
 [node name="Character" parent="." unique_id=677145848 instance=ExtResource("2_px1sc")]
 transform = Transform3D(0.615, 0, 0, 0, 0.615, 0, 0, 0, 0.615, 0, -0.9856733, 0)
 
-[node name="SwordPivot" type="Node3D" parent="."]
+[node name="SwordAim" type="Node3D" parent="." unique_id=465440509]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.3, -0.3)
 
-[node name="SwordMesh" type="MeshInstance3D" parent="SwordPivot"]
+[node name="SwordPivot" type="Node3D" parent="SwordAim" unique_id=605871433]
+
+[node name="SwordMesh" type="MeshInstance3D" parent="SwordAim/SwordPivot" unique_id=2085266208]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 mesh = SubResource("BoxMesh_sword")
 surface_material_override/0 = SubResource("StandardMaterial3D_sword")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_sword")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=811718283]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_sword")
 
 [node name="AggroArea" type="Area3D" parent="." unique_id=305742766]
 unique_name_in_owner = true

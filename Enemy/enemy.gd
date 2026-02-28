@@ -13,7 +13,8 @@ var time_since_last_attack: float = 0.0
 
 @export_group("Dependencies")
 @onready var aggro_area: Area3D = %AggroArea
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
+@onready var sword_aim: Node3D = $SwordAim
 var target: Node3D = null
 
 # --- Common ---
@@ -72,6 +73,13 @@ func move_toward_target() -> void:
 # --- Attacking ---
 
 func attack_target() -> void:
+	# Rotate the sword arm specifically to point exactly at the player's core
+	if is_instance_valid(target) and is_instance_valid(sword_aim):
+		var aim_position = target.global_position
+		aim_position.y = sword_aim.global_position.y
+		if sword_aim.global_position.distance_squared_to(aim_position) > 0.001:
+			sword_aim.look_at(aim_position, Vector3.UP)
+	
 	if target is Player:
 		target.take_damage(attack_damage)
 		time_since_last_attack = 0.0
