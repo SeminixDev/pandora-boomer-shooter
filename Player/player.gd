@@ -162,6 +162,9 @@ func shoot() -> void:
 		gun.reload()
 
 func take_damage(amount: int) -> void:
+	if current_state == State.HEAVY_LEAP or current_state == State.HEAVY_SLAM:
+		return
+	
 	current_health -= amount
 	print_debug("Player took damage. Current Health: ", current_health)
 	
