@@ -1,9 +1,10 @@
 class_name Player extends CharacterBody3D
 
 @export_group("Movement")
-@export var speed = 5.0
-@export var jump_velocity = 4.5
-@export var turn_speed = 0.07
+@export var speed := 10.0
+@export var acceleration := 100.0
+@export var friction := 100.0
+@export var turn_speed := 3.0 # Radians per second07
 
 @export_group("Stats")
 @export var max_health: int = 100
@@ -27,30 +28,56 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-	# Jump
-	#if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-	#	velocity.y = jump_velocity
+	move(delta)
 	
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("up2"):
 		shoot()
 	
-	move()
+	time_since_last_melee += delta
+	if Input.is_action_just_pressed("down2"):
+		melee()
+
 
 # --- Controls ---
 
-func move() -> void:
-	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * speed
-		velocity.z = direction.z * speed
+func move(delta: float) -> void:
+	# 1. Handle Rotation (Turning)
+	# Tied to delta for consistent speed regardless of FPS
+	if Input.is_action_pressed("left2"):
+		rotate_y(turn_speed * delta)
+	if Input.is_action_pressed("right2"):
+		rotate_y(-turn_speed * delta)
+
+	# Build the Movement Direction
+	var input_direction := Vector3.ZERO
+
+	# Forward/Back (Z-axis)
+	if Input.is_action_pressed("up1"):
+		input_direction -= transform.basis.z
+	if Input.is_action_pressed("down1"):
+		input_direction += transform.basis.z
+
+	# Strafing (X-axis)
+	if Input.is_action_pressed("left1"):
+		input_direction -= transform.basis.x
+	if Input.is_action_pressed("right1"):
+		input_direction += transform.basis.x
+
+	# Normalizing prevents "diagonal speed boost" 
+	# (where moving forward + side makes you 1.4x faster)
+	if input_direction.length() > 0:
+		input_direction = input_direction.normalized()
+
+	# Apply Acceleration & Friction
+	if input_direction != Vector3.ZERO:
+		var target_velocity = input_direction * speed
+		velocity.x = move_toward(velocity.x, target_velocity.x, acceleration * delta)
+		velocity.z = move_toward(velocity.z, target_velocity.z, acceleration * delta)
 	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
-		velocity.z = move_toward(velocity.z, 0, speed)
-	if Input.is_action_pressed("ui_left"):
-		self.rotate_y(turn_speed)
-	if Input.is_action_pressed("ui_right"):
-		self.rotate_y(-turn_speed)
+		velocity.x = move_toward(velocity.x, 0, friction * delta)
+		velocity.z = move_toward(velocity.z, 0, friction * delta)
+	
+	# Execute Movement
 	move_and_slide()
 
 func shoot() -> void:
