@@ -14,7 +14,7 @@ var current_state: State = State.NORMAL
 var current_health: int = max_health
 
 @export_group("Melee Attack")
-@export var melee_damage: int = 20
+@export var melee_damage: int = 100
 @export var melee_cooldown: float = 0.6
 @export var heavy_charge_time: float = 0.3 # Time holding button to trigger heavy
 var time_since_last_melee: float = 0.0
@@ -39,6 +39,8 @@ var original_camera_rotation_x: float = 0.0
 
 func _ready() -> void:
 	original_camera_rotation_x = camera.rotation.x
+	
+	scythe.attack_finished.connect(_on_scythe_attack_finished)
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor() and current_state != State.HEAVY_SLAM:
@@ -54,7 +56,7 @@ func _physics_process(delta: float) -> void:
 		State.NORMAL:
 			move(delta)
 		State.QUICK_ATTACK:
-			move(delta, 0.3) # Move at 30% speed
+			move(delta, 0.8) # Move at 30% speed
 		State.HEAVY_LEAP:
 			move(delta, 0.5) # Slight air control while leaping
 			if velocity.y <= 0: # Reached apex of leap
@@ -135,15 +137,6 @@ func shoot() -> void:
 	time_since_last_ranged = 0.0
 	gun.shoot()
 
-func melee() -> void:
-	# Handle cooldown
-	if time_since_last_melee < melee_cooldown:
-		return
-		
-	time_since_last_melee = 0.0
-	
-	animation_player.play("melee_swing")
-
 func take_damage(amount: int) -> void:
 	current_health -= amount
 	print_debug("Player took damage. Current Health: ", current_health)
@@ -157,21 +150,22 @@ func die() -> void:
 	
 # --- State Actions ---
 
+func _on_scythe_attack_finished() -> void:
+	if current_state in [State.QUICK_ATTACK, State.HEAVY_SLAM]:
+		end_attack()
+
 func start_quick_attack() -> void:
 	current_state = State.QUICK_ATTACK
 	time_since_last_melee = 0.0
-	# Slight forward lunge
-	velocity += -transform.basis.z * 10.0 
-	animation_player.play("melee_swing")
-	# Rely on the AnimationPlayer calling `end_attack()` when finished
+	velocity += -transform.basis.z * 20.0 
+	scythe.play_quick_attack()
 
 func start_heavy_leap() -> void:
 	current_state = State.HEAVY_LEAP
 	time_since_last_melee = 0.0
-	# Launch up and slightly forward
-	velocity.y = 15.0
+	velocity.y += 15.0
 	velocity += -transform.basis.z * 5.0
-	animation_player.play("heavy_leap") # Play wind-up animation
+	scythe.play_heavy_leap()
 
 func start_heavy_slam() -> void:
 	current_state = State.HEAVY_SLAM
@@ -202,17 +196,12 @@ func handle_heavy_slam(delta: float) -> void:
 		trigger_slam_impact()
 
 func trigger_slam_impact() -> void:
-	# Impact
-	camera.rotation.x = original_camera_rotation_x # Reset camera instantly
-	animation_player.play("heavy_slam_impact")
+	camera.rotation.x = original_camera_rotation_x 
+	scythe.play_heavy_slam_impact()
 	scythe.set_heavy_active(true)
 	
-	# TODO: Shake screen, spawn particles here in the future
-	
-	# Disable hitbox and return to normal after brief delay
 	await get_tree().create_timer(0.2).timeout
 	scythe.set_heavy_active(false)
-	end_attack()
 
 func end_attack() -> void:
 	current_state = State.NORMAL

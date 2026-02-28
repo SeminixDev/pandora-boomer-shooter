@@ -156,7 +156,7 @@ func apply_hit(amount: int, knockback: Vector3, stun_duration: float) -> void:
 		stun_timer = stun_duration
 	
 	if knockback != Vector3.ZERO:
-		velocity = knockback
+		velocity += knockback
 	
 	if current_health <= 0:
 		die()
