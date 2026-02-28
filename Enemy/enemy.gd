@@ -43,6 +43,11 @@ func _physics_process(delta: float) -> void:
 		if stun_timer <= 0:
 			is_stunned = false
 		
+		# Apply friction if on floor while stunned
+		if is_on_floor():
+			velocity.x = move_toward(velocity.x, 0, friction * delta)
+			velocity.z = move_toward(velocity.z, 0, friction * delta)
+		
 		# Still process movement so they fall and get knocked back, but skip AI logic
 		move_and_slide()
 		return

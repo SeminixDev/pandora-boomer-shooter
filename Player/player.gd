@@ -1,6 +1,6 @@
 class_name Player extends CharacterBody3D
 
-enum State { NORMAL, QUICK_ATTACK, HEAVY_LEAP, HEAVY_SLAM }
+enum State { NORMAL, QUICK_ATTACK, HEAVY_LEAP, HEAVY_SLAM, HEAVY_SLAM_RECOVERY }
 var current_state: State = State.NORMAL
 
 @export_group("Movement")
@@ -70,6 +70,11 @@ func _physics_process(delta: float) -> void:
 				start_heavy_slam()
 		State.HEAVY_SLAM:
 			handle_heavy_slam(delta)
+		State.HEAVY_SLAM_RECOVERY:
+			# Freeze horizontal movement entirely
+			velocity.x = 0
+			velocity.z = 0
+			move_and_slide() # Keeps gravity/floor collision active
 		
 	# Camera tilt logic
 	if current_state in [State.HEAVY_LEAP, State.HEAVY_SLAM]:
@@ -152,6 +157,9 @@ func shoot() -> void:
 	shots_left -= 1
 	time_since_last_ranged = 0.0
 	gun.shoot()
+	
+	if shots_left <= 0:
+		gun.reload()
 
 func take_damage(amount: int) -> void:
 	current_health -= amount
@@ -167,7 +175,7 @@ func die() -> void:
 # --- State Actions ---
 
 func _on_scythe_attack_finished() -> void:
-	if current_state in [State.QUICK_ATTACK, State.HEAVY_SLAM]:
+	if current_state in [State.QUICK_ATTACK, State.HEAVY_SLAM_RECOVERY]:
 		end_attack()
 
 func start_quick_attack() -> void:
@@ -209,6 +217,9 @@ func handle_heavy_slam(delta: float) -> void:
 		trigger_slam_impact()
 
 func trigger_slam_impact() -> void:
+	current_state = State.HEAVY_SLAM_RECOVERY
+	velocity = Vector3.ZERO # Instantly kill all momentum
+	
 	scythe.play_heavy_slam_impact()
 	scythe.set_heavy_active(true)
 	
