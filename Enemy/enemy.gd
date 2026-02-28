@@ -53,6 +53,12 @@ func _physics_process(delta: float) -> void:
 	# Move toward target if exists
 	if target:
 		move_toward_target(delta)
+	else:
+		# Apply friction so they slide to a halt if they lose the player while moving
+		velocity.x = move_toward(velocity.x, 0, friction * delta)
+		velocity.z = move_toward(velocity.z, 0, friction * delta)
+		
+	move_and_slide()
 
 # --- Movement --- 
 
@@ -72,7 +78,6 @@ func move_toward_target(delta: float) -> void:
 		look_target.y = global_position.y
 		if global_position.distance_to(look_target) > 0.1:
 			look_at(look_target, Vector3.UP)
-		var direction = global_position.direction_to(target.global_position)
 	
 	#  Apply movement physics
 	if ai_direction != Vector3.ZERO:
@@ -93,8 +98,6 @@ func move_toward_target(delta: float) -> void:
 	# Return if player killed & scene was reloaded
 	if not is_inside_tree():
 		return
-	
-	move_and_slide()
 
 # --- Attacking ---
 

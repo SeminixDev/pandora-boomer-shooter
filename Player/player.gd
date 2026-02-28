@@ -9,6 +9,15 @@ var current_state: State = State.NORMAL
 @export var friction : float = 100.0
 @export var turn_speed : float = 3.0 # Radians per second
 
+@export_subgroup("Attack Movement Tuning")
+@export var quick_lunge_force: float = 20.0
+@export var heavy_leap_upward_force: float = 15.0
+@export var heavy_leap_forward_force: float = 5.0
+@export var heavy_slam_downward_force: float = 40.0
+@export var heavy_slam_speed_multiplier: float = 1.5
+@export var heavy_slam_camera_angle: float = -40.0
+@export var camera_tilt_speed: float = 100.0
+
 @export_group("Stats")
 @export var max_health: int = 100
 var current_health: int = max_health
@@ -86,7 +95,7 @@ func handle_inputs(delta: float) -> void:
 
 func move(delta: float, speed_multiplier: float = 1.0) -> void:
 	
-	# 1. Handle Rotation (Turning)
+	# Handle Rotation (Turning)
 	if Input.is_action_pressed("left2"):
 		rotate_y(turn_speed * delta)
 	if Input.is_action_pressed("right2"):
@@ -120,8 +129,8 @@ func move(delta: float, speed_multiplier: float = 1.0) -> void:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
 		velocity.z = move_toward(velocity.z, 0, friction * delta)
 	
-	# Move camera back when not heavy slamming
-	camera.rotation_degrees.x = move_toward(original_camera_rotation_x, -40.0, 100 * delta)
+	# Smoothly move camera back to original rotation when not heavy slamming
+	camera.rotation_degrees.x = move_toward(camera.rotation_degrees.x, original_camera_rotation_x, camera_tilt_speed * delta)
 	
 	# Execute Movement
 	move_and_slide()
@@ -160,14 +169,14 @@ func _on_scythe_attack_finished() -> void:
 func start_quick_attack() -> void:
 	current_state = State.QUICK_ATTACK
 	time_since_last_melee = 0.0
-	velocity += -transform.basis.z * 20.0 
+	velocity += -transform.basis.z * quick_lunge_force 
 	scythe.play_quick_attack()
 
 func start_heavy_leap() -> void:
 	current_state = State.HEAVY_LEAP
 	time_since_last_melee = 0.0
-	velocity.y += 15.0
-	velocity += -transform.basis.z * 5.0
+	velocity.y += heavy_leap_upward_force
+	velocity += -transform.basis.z * heavy_leap_forward_force
 	scythe.play_heavy_leap()
 
 func start_heavy_slam() -> void:
@@ -175,8 +184,8 @@ func start_heavy_slam() -> void:
 	velocity = Vector3.ZERO # Kill momentum before plunging
 
 func handle_heavy_slam(delta: float) -> void:
-	# Face camera downward
-	camera.rotation_degrees.x = move_toward(camera.rotation_degrees.x, -40.0, 100 * delta)
+	# Face camera downward smoothly
+	camera.rotation_degrees.x = move_toward(camera.rotation_degrees.x, heavy_slam_camera_angle, camera_tilt_speed * delta)
 	
 	# Plunge velocity (Down + Camera Forward/Backward/Strafe control)
 	var input_direction := Vector3.ZERO
@@ -188,10 +197,10 @@ func handle_heavy_slam(delta: float) -> void:
 	if input_direction.length() > 0:
 		input_direction = input_direction.normalized()
 	
-	var target_vel = input_direction * (speed * 1.5) # Allow fast air control
+	var target_vel = input_direction * (speed * heavy_slam_speed_multiplier) 
 	velocity.x = move_toward(velocity.x, target_vel.x, acceleration * delta)
 	velocity.z = move_toward(velocity.z, target_vel.z, acceleration * delta)
-	velocity.y = -40.0 # Extreme downward force
+	velocity.y = -heavy_slam_downward_force 
 	
 	move_and_slide()
 	
