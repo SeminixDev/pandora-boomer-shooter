@@ -64,20 +64,61 @@ shadow_enabled = true
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 10.928247)
 collision_mask = 1
+max_health = 9999
 
 [node name="Enemies" type="Node" parent="." unique_id=828516008]
 
 [node name="Enemy" parent="Enemies" unique_id=2141865840 instance=ExtResource("2_8a836")]
 transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 0, 1, -10.566)
-max_health = 1000
+max_health = 100
 
 [node name="Enemy2" parent="Enemies" unique_id=1120158493 instance=ExtResource("2_8a836")]
 transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, -3.7650156, 1, -10.566)
-max_health = 1000
+max_health = 100
 
 [node name="Enemy4" parent="Enemies" unique_id=1538839082 instance=ExtResource("2_8a836")]
 transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 4.330942, 1, -10.566)
-max_health = 1000
+max_health = 100
+
+[node name="Enemy5" parent="Enemies" unique_id=301871210 instance=ExtResource("2_8a836")]
+transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 2.6237164, 1, -5.681693)
+max_health = 100
+
+[node name="Enemy6" parent="Enemies" unique_id=888079195 instance=ExtResource("2_8a836")]
+transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 5.4589367, 1, -4.1479473)
+max_health = 100
+
+[node name="Enemy7" parent="Enemies" unique_id=1155643612 instance=ExtResource("2_8a836")]
+transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, -1.0690899, 1, -4.942194)
+max_health = 100
+
+[node name="Enemy8" parent="Enemies" unique_id=106824557 instance=ExtResource("2_8a836")]
+transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, -5.390154, 1, -3.7962065)
+max_health = 100
+
+[node name="Enemy9" parent="Enemies" unique_id=730075770 instance=ExtResource("2_8a836")]
+transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, -9.118284, 1, -0.40503883)
+max_health = 100
+
+[node name="Enemy10" parent="Enemies" unique_id=380906548 instance=ExtResource("2_8a836")]
+transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 2.8817158, 1, 1.5949612)
+max_health = 100
+
+[node name="Enemy11" parent="Enemies" unique_id=786571428 instance=ExtResource("2_8a836")]
+transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 9.469704, 1, -2.4899826)
+max_health = 100
+
+[node name="Enemy12" parent="Enemies" unique_id=1005298635 instance=ExtResource("2_8a836")]
+transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 0.20017242, 1, -1.4166203)
+max_health = 100
+
+[node name="Enemy13" parent="Enemies" unique_id=817414930 instance=ExtResource("2_8a836")]
+transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, -6.0463, 1, -8.771614)
+max_health = 100
+
+[node name="Enemy14" parent="Enemies" unique_id=730269759 instance=ExtResource("2_8a836")]
+transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 8.9537, 1, -7.771614)
+max_health = 100
 
 [node name="Environment" type="Node" parent="." unique_id=2127158984]
 

@@ -50,5 +50,5 @@ func _on_heavy_hitbox_body_entered(body: Node3D) -> void:
 		push_dir.y = 0.0
 		push_dir = push_dir.normalized()
 		
-		var knockback = (push_dir * 10.0) + (Vector3.UP * 15.0) 
+		var knockback = (push_dir * 3.0) + (Vector3.UP * 5.0) 
 		body.apply_hit(heavy_damage, knockback, 2.5) # Stunned for 2.5s
