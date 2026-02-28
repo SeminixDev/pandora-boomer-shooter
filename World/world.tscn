@@ -69,12 +69,15 @@ collision_mask = 1
 
 [node name="Enemy" parent="Enemies" unique_id=2141865840 instance=ExtResource("2_8a836")]
 transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 0, 1, -10.566)
+max_health = 1000
 
 [node name="Enemy2" parent="Enemies" unique_id=1120158493 instance=ExtResource("2_8a836")]
 transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, -3.7650156, 1, -10.566)
+max_health = 1000
 
 [node name="Enemy4" parent="Enemies" unique_id=1538839082 instance=ExtResource("2_8a836")]
 transform = Transform3D(-0.9806762, 0, -0.19563816, 0, 1, 0, 0.19563816, 0, -0.9806762, 4.330942, 1, -10.566)
+max_health = 1000
 
 [node name="Environment" type="Node" parent="." unique_id=2127158984]
 

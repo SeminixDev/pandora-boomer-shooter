@@ -30,6 +30,9 @@ var stun_timer: float = 0.0
 
 # --- Common ---
 
+func _ready() -> void:
+	current_health = max_health
+
 func _physics_process(delta: float) -> void:
 	# Add gravity
 	if not is_on_floor():

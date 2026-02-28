@@ -35,10 +35,8 @@ var shots_left: int = 2
 @onready var camera: Camera3D = %MainCamera
 var original_camera_rotation_x: float = 0.0
 
-# --- Node ---
-
 func _ready() -> void:
-	original_camera_rotation_x = camera.rotation.x
+	current_health = max_health
 	
 	scythe.attack_finished.connect(_on_scythe_attack_finished)
 
@@ -63,6 +61,7 @@ func _physics_process(delta: float) -> void:
 				start_heavy_slam()
 		State.HEAVY_SLAM:
 			handle_heavy_slam(delta)
+		
 
 func handle_inputs(delta: float) -> void:
 	if current_state != State.NORMAL:
@@ -86,6 +85,7 @@ func handle_inputs(delta: float) -> void:
 # --- Movement ---
 
 func move(delta: float, speed_multiplier: float = 1.0) -> void:
+	
 	# 1. Handle Rotation (Turning)
 	if Input.is_action_pressed("left2"):
 		rotate_y(turn_speed * delta)
@@ -119,6 +119,9 @@ func move(delta: float, speed_multiplier: float = 1.0) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
 		velocity.z = move_toward(velocity.z, 0, friction * delta)
+	
+	# Move camera back when not heavy slamming
+	camera.rotation_degrees.x = move_toward(original_camera_rotation_x, -40.0, 100 * delta)
 	
 	# Execute Movement
 	move_and_slide()
@@ -173,7 +176,7 @@ func start_heavy_slam() -> void:
 
 func handle_heavy_slam(delta: float) -> void:
 	# Face camera downward
-	camera.rotation_degrees.x = move_toward(camera.rotation_degrees.x, -75.0, 300 * delta)
+	camera.rotation_degrees.x = move_toward(camera.rotation_degrees.x, -40.0, 100 * delta)
 	
 	# Plunge velocity (Down + Camera Forward/Backward/Strafe control)
 	var input_direction := Vector3.ZERO
@@ -196,7 +199,6 @@ func handle_heavy_slam(delta: float) -> void:
 		trigger_slam_impact()
 
 func trigger_slam_impact() -> void:
-	camera.rotation.x = original_camera_rotation_x 
 	scythe.play_heavy_slam_impact()
 	scythe.set_heavy_active(true)
 	
