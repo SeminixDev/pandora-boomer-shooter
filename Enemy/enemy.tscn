@@ -8,6 +8,52 @@ radius = 0.44921875
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_px1sc"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_sword"]
+size = Vector3(0.1, 0.8, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sword"]
+albedo_color = Color(0.662745, 0.662745, 0.662745, 1)
+metallic = 0.8
+roughness = 0.3
+
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwordPivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_swing"]
+resource_name = "attack_swing"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwordPivot:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-1.5708, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sword"]
+_data = {
+"RESET": SubResource("Animation_idle"),
+"attack_swing": SubResource("Animation_swing")
+}
+
 [node name="Enemy" type="CharacterBody3D" unique_id=2141865840]
 collision_layer = 4
 collision_mask = 3
@@ -19,6 +65,19 @@ shape = SubResource("CylinderShape3D_px1sc")
 
 [node name="Character" parent="." unique_id=677145848 instance=ExtResource("2_px1sc")]
 transform = Transform3D(0.615, 0, 0, 0, 0.615, 0, 0, 0, 0.615, 0, -0.9856733, 0)
+
+[node name="SwordPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.3, -0.3)
+
+[node name="SwordMesh" type="MeshInstance3D" parent="SwordPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+mesh = SubResource("BoxMesh_sword")
+surface_material_override/0 = SubResource("StandardMaterial3D_sword")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sword")
+}
 
 [node name="AggroArea" type="Area3D" parent="." unique_id=305742766]
 unique_name_in_owner = true

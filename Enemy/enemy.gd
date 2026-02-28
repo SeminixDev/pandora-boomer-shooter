@@ -13,6 +13,7 @@ var time_since_last_attack: float = 0.0
 
 @export_group("Dependencies")
 @onready var aggro_area: Area3D = %AggroArea
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 var target: Node3D = null
 
 # --- Common ---
@@ -66,15 +67,19 @@ func move_toward_target() -> void:
 		velocity.z = 0
 		
 		if time_since_last_attack >= attack_cooldown:
-			attack()
+			attack_target()
 
 # --- Attacking ---
 
-func attack() -> void:
-	if target and target.has_method("take_damage"):
+func attack_target() -> void:
+	if target is Player:
 		target.take_damage(attack_damage)
 		time_since_last_attack = 0.0
 		print_debug("Enemy attacked player. Player took ", attack_damage, " damage.")
+	
+	if animation_player:
+		animation_player.play("attack_swing")
+
 
 # --- Damage ---
 
