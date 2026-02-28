@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://x6lpxaiqs3bf"]
+
+[ext_resource type="Script" uid="uid://2ei08dr41son" path="res://World/spawn_point.gd" id="1_457uw"]
+
+[sub_resource type="Gradient" id="Gradient_457uw"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.531401, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_stl4h"]
+gradient = SubResource("Gradient_457uw")
+
+[sub_resource type="Curve" id="Curve_xdxxc"]
+_data = [Vector2(0, 0), 0.0, 3.4179153, 0, 0, Vector2(0.50214595, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.5529675, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_a26r0"]
+curve = SubResource("Curve_xdxxc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rbtjv"]
+emission_shape = 1
+emission_sphere_radius = 0.5
+gravity = Vector3(0, 0.7, 0)
+scale_curve = SubResource("CurveTexture_a26r0")
+color_ramp = SubResource("GradientTexture1D_stl4h")
+turbulence_enabled = true
+turbulence_noise_strength = 2.0
+turbulence_noise_scale = 4.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y0f83"]
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(3.9553394, 0, 2.5208921, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_f1hu4"]
+material = SubResource("StandardMaterial3D_y0f83")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="GDScript" id="GDScript_457uw"]
+script/source = "@tool
+extends Node3D
+
+func _ready():
+	# If we are actually playing the game, delete the visual helper
+	if not Engine.is_editor_hint():
+		if has_node(\"DebugVisual\"):
+			get_node(\"DebugVisual\").queue_free()
+
+func _enter_tree():
+	# Only create the visual if we are in the editor and it doesn't exist
+	if Engine.is_editor_hint() and not has_node(\"DebugVisual\"):
+		var mesh_instance = MeshInstance3D.new()
+		mesh_instance.name = \"DebugVisual\"
+		
+		# Create a small sphere
+		var sphere = SphereMesh.new()
+		sphere.radius = 0.4
+		sphere.height = 0.8
+		mesh_instance.mesh = sphere
+		
+		# Make it a bright, unshaded color
+		var mat = StandardMaterial3D.new()
+		mat.albedo_color = Color(1, 0.5, 0) # Orange
+		mat.shading_mode = StandardMaterial3D.SHADING_MODE_UNSHADED
+		mesh_instance.material_override = mat
+		
+		add_child(mesh_instance)
+"
+
+[node name="SpawnPoint" type="Marker3D" unique_id=600889453]
+script = ExtResource("1_457uw")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1291170513]
+emitting = false
+amount = 80
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.8
+process_material = SubResource("ParticleProcessMaterial_rbtjv")
+draw_pass_1 = SubResource("SphereMesh_f1hu4")
+
+[node name="SpawnMarker" type="Node3D" parent="." unique_id=1607809335]
+script = SubResource("GDScript_457uw")

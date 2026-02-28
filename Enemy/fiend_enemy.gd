@@ -52,8 +52,8 @@ func start_attack() -> void:
 	current_state = State.ATTACK
 	time_since_last_attack = 0.0
 	
-	# If you have a casting animation, play it here and call shoot_fireball() via animation
-	# For now, we use a timer as a placeholder for an animation
+	# TODO: play casting animation here and call shoot_fireball() via animation
+	# For now, using timer
 	await get_tree().create_timer(0.5).timeout 
 	if current_state == State.ATTACK: # Ensure not stunned or dead
 		shoot_fireball()

@@ -55,8 +55,8 @@ func start_telegraph() -> void:
 	time_since_last_attack = 0.0
 	velocity = Vector3.ZERO
 	
-	# Optional: Play a "crouching" telegraph animation here
-	# animation_player.play("telegraph")
+	# TODO: Play a "crouching" telegraph animation here
+	# animation_player.play("telegraph") and emit finished signal
 	
 	await get_tree().create_timer(telegraph_duration).timeout
 	

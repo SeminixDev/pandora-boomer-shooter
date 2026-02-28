@@ -1,10 +1,9 @@
 [gd_scene format=3 uid="uid://ckx5xm6ryj5u1"]
 
 [ext_resource type="PackedScene" uid="uid://bf5eg8wvt0fvu" path="res://Player/player.tscn" id="1_62w18"]
-[ext_resource type="PackedScene" uid="uid://kpirgxt8ghgc" path="res://Enemy/ghoul_enemy.tscn" id="2_j8job"]
-[ext_resource type="PackedScene" uid="uid://kmboh0cmf6mb" path="res://Enemy/fiend_enemy.tscn" id="3_3f78f"]
 [ext_resource type="PackedScene" uid="uid://btxa0o25fwpub" path="res://Models/Mausoleum.glb" id="3_j8job"]
-[ext_resource type="PackedScene" uid="uid://calrmc5t5bh81" path="res://Enemy/leaper_enemy.tscn" id="4_k8do8"]
+[ext_resource type="PackedScene" uid="uid://x6lpxaiqs3bf" path="res://World/spawn_point.tscn" id="4_3f78f"]
+[ext_resource type="PackedScene" uid="uid://c5m0kq5f1kx50" path="res://World/wave_manager.tscn" id="6_bkhv4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fj7yv"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -41,54 +40,6 @@ max_health = 9999
 
 [node name="Enemies" type="Node" parent="." unique_id=828516008]
 
-[node name="Ghoul" parent="Enemies" unique_id=2141865840 instance=ExtResource("2_j8job")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.14878, -5, -2.5243225)
-
-[node name="Ghoul2" parent="Enemies" unique_id=87174558 instance=ExtResource("2_j8job")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2384787, -5, 14.78692)
-
-[node name="Ghoul3" parent="Enemies" unique_id=1874486684 instance=ExtResource("2_j8job")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.949145, -5, -10.053324)
-
-[node name="Ghoul6" parent="Enemies" unique_id=1876054345 instance=ExtResource("2_j8job")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.271248, -5, -2.4234471)
-
-[node name="Ghoul7" parent="Enemies" unique_id=691410918 instance=ExtResource("2_j8job")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.267089, -4.999996, -3.844901)
-
-[node name="Ghoul4" parent="Enemies" unique_id=16315766 instance=ExtResource("2_j8job")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.69667, -5, 7.0250974)
-
-[node name="Ghoul5" parent="Enemies" unique_id=1312230064 instance=ExtResource("2_j8job")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.12601, -5, -20.290012)
-
-[node name="Fiend" parent="Enemies" unique_id=1432589674 instance=ExtResource("3_3f78f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.483421, -5, 19.474966)
-
-[node name="Fiend2" parent="Enemies" unique_id=1878183636 instance=ExtResource("3_3f78f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.583038, -5, -14.874963)
-
-[node name="Fiend3" parent="Enemies" unique_id=92895107 instance=ExtResource("3_3f78f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.418007, -5.000002, -14.910084)
-
-[node name="Fiend4" parent="Enemies" unique_id=342559715 instance=ExtResource("3_3f78f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.406563, -5, 9.375563)
-
-[node name="Leaper" parent="Enemies" unique_id=24567430 instance=ExtResource("4_k8do8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.400774, -5, -23.249495)
-leap_range = 30.0
-leap_force = 20.0
-
-[node name="Leaper3" parent="Enemies" unique_id=209316998 instance=ExtResource("4_k8do8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.71598, -5, -1.1963139)
-leap_range = 30.0
-leap_force = 20.0
-
-[node name="Leaper2" parent="Enemies" unique_id=2010694590 instance=ExtResource("4_k8do8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.985303, -5, 21.082893)
-leap_range = 30.0
-leap_force = 20.0
-
 [node name="Environment" type="Node" parent="." unique_id=2127158984]
 
 [node name="Mausoleum" parent="Environment" unique_id=1984913397 instance=ExtResource("3_j8job")]
@@ -113,3 +64,92 @@ collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/MeshInstance3D2/StaticBody3D" unique_id=150175548]
 shape = SubResource("ConvexPolygonShape3D_j8job")
+
+[node name="WaveManager" parent="." unique_id=1144403524 instance=ExtResource("6_bkhv4")]
+unique_name_in_owner = true
+
+[node name="SpawnPoints" type="Node" parent="." unique_id=73261453]
+
+[node name="SpawnPoint" parent="SpawnPoints" unique_id=600889453 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.014467, -5, 1.1342602)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint2" parent="SpawnPoints" unique_id=329283022 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.104073, -5, -12.310547)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint3" parent="SpawnPoints" unique_id=1484567558 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.02617, -5, 9.039566)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint4" parent="SpawnPoints" unique_id=1538147400 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.148727, -5, -16.799948)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint5" parent="SpawnPoints" unique_id=856024943 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.461708, -5, -21.323603)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint6" parent="SpawnPoints" unique_id=1164046639 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.538292, -5, -6.3236027)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint7" parent="SpawnPoints" unique_id=1198946263 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3399992, -5, 9.551013)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint8" parent="SpawnPoints" unique_id=2059298151 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.43821, -5, 21.732876)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint9" parent="SpawnPoints" unique_id=1101774474 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.407585, -5, 24.471134)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint10" parent="SpawnPoints" unique_id=2079534734 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.435104, -5, 15.75123)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint11" parent="SpawnPoints" unique_id=791896017 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.726221, -5, -15.733261)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint12" parent="SpawnPoints" unique_id=1026642185 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.641556, -5, -18.774965)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint13" parent="SpawnPoints" unique_id=582721909 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.075527, -5, -22.58779)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint14" parent="SpawnPoints" unique_id=202162559 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.19929, -5, 20.520735)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint15" parent="SpawnPoints" unique_id=1017058099 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.61587, -5, 28.1201)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint16" parent="SpawnPoints" unique_id=447734719 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.74585, -5, 13.683144)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint17" parent="SpawnPoints" unique_id=67195505 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.374308, -5, 24.24421)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint18" parent="SpawnPoints" unique_id=882625749 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.982286, -5, 29.102833)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint19" parent="SpawnPoints" unique_id=1013988020 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.351934, -5, -33.17334)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint21" parent="SpawnPoints" unique_id=1148904144 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.812727, -5, -29.667007)
+gizmo_extents = 1.0
+
+[node name="SpawnPoint20" parent="SpawnPoints" unique_id=1709395938 instance=ExtResource("4_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.169525, -5, -31.761368)
+gizmo_extents = 1.0
