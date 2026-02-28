@@ -26,7 +26,6 @@ var shots_left: int = 2
 @onready var gun: Gun = %Gun
 @onready var scythe: Scythe = %Scythe
 @onready var muzzle: Marker3D = %Muzzle
-@onready var melee_ray: RayCast3D = %MeleeRayCast
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 # --- Node ---
