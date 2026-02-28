@@ -2,9 +2,18 @@ class_name Scythe extends Node3D
 
 signal attack_finished
 
+@export_group("Quick Attack")
 @export var quick_damage: int = 20
-@export var heavy_damage: int = 40
+@export var quick_knockback_force: float = 20.0
+@export var quick_stun_duration: float = 0.4
 
+@export_group("Heavy Attack")
+@export var heavy_damage: int = 40
+@export var heavy_knockback_horizontal: float = 10.0
+@export var heavy_knockback_vertical: float = 5.0
+@export var heavy_stun_duration: float = 2.5
+
+@export_group("Dependencies")
 @onready var primary_hitbox: Area3D = %PrimaryHitbox
 @onready var heavy_hitbox: Area3D = %HeavyHitbox
 @onready var animation_player: AnimationPlayer = %ScytheAnimationPlayer
@@ -39,16 +48,16 @@ func finish_attack() -> void:
 
 func _on_primary_hitbox_body_entered(body: Node3D) -> void:
 	if body.has_method("apply_hit") and body != owner:
-		# Small pushback, tiny stun
-		var knockback = global_transform.basis.z * 20.0 
-		body.apply_hit(quick_damage, knockback, 0.4)
+		var knockback = global_transform.basis.z * quick_knockback_force 
+		body.apply_hit(quick_damage, knockback, quick_stun_duration)
 
 func _on_heavy_hitbox_body_entered(body: Node3D) -> void:
 	if body.has_method("apply_hit") and body != owner:
 		# Launch into the air (Y-axis) + push away from impact center
 		var push_dir = (body.global_position - global_position)
 		push_dir.y = 0.0
-		push_dir = push_dir.normalized()
+		if push_dir.length() > 0: # Safety check to avoid division by zero
+			push_dir = push_dir.normalized()
 		
-		var knockback = (push_dir * 3.0) + (Vector3.UP * 5.0) 
-		body.apply_hit(heavy_damage, knockback, 2.5) # Stunned for 2.5s
+		var knockback = (push_dir * heavy_knockback_horizontal) + (Vector3.UP * heavy_knockback_vertical) 
+		body.apply_hit(heavy_damage, knockback, heavy_stun_duration)
