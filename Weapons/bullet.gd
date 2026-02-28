@@ -4,6 +4,10 @@ class_name Bullet extends Area3D
 @export var damage: int = 10
 @export var lifetime: float = 4.0
 
+@export_group("Damage Targets")
+@export var damage_player: bool = true
+@export var damage_enemy: bool = true
+
 var direction: Vector3 = Vector3.ZERO
 
 @onready var mesh = %MeshInstance3D
@@ -23,7 +27,10 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node3D) -> void:
 	# Damage the object if possible
 	if body.has_method("take_damage"):
-		body.take_damage(damage)
+		if body == Player and damage_player:
+			body.take_damage(damage)
+		if body == BaseEnemy and damage_enemy:
+			body.take_damage(damage)
 	
 	# Destroy the bullet upon hitting anything (enemy, wall, etc.)
 	queue_free()

@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://kpirgxt8ghgc" path="res://Enemy/ghoul_enemy.tscn" id="2_j8job"]
 [ext_resource type="PackedScene" uid="uid://kmboh0cmf6mb" path="res://Enemy/fiend_enemy.tscn" id="3_3f78f"]
 [ext_resource type="PackedScene" uid="uid://btxa0o25fwpub" path="res://Models/Mausoleum.glb" id="3_j8job"]
+[ext_resource type="PackedScene" uid="uid://calrmc5t5bh81" path="res://Enemy/leaper_enemy.tscn" id="4_k8do8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fj7yv"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -34,43 +35,64 @@ shadow_enabled = true
 
 [node name="Player" parent="." unique_id=1346923229 instance=ExtResource("1_62w18")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.254395, 1.3753426, 0.51128054)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.46158, -2.6307213, -0.76152754)
 collision_mask = 1
 max_health = 9999
 
 [node name="Enemies" type="Node" parent="." unique_id=828516008]
 
 [node name="Ghoul" parent="Enemies" unique_id=2141865840 instance=ExtResource("2_j8job")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.828323, -2.1205542, -5.118181)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.14878, -5, -2.5243225)
 
 [node name="Ghoul2" parent="Enemies" unique_id=87174558 instance=ExtResource("2_j8job")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.16623, -2.1205542, 4.6774845)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2384787, -5, 14.78692)
 
 [node name="Ghoul3" parent="Enemies" unique_id=1874486684 instance=ExtResource("2_j8job")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.734074, -2.1205542, -0.9497938)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.949145, -5, -10.053324)
+
+[node name="Ghoul6" parent="Enemies" unique_id=1876054345 instance=ExtResource("2_j8job")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.271248, -5, -2.4234471)
+
+[node name="Ghoul7" parent="Enemies" unique_id=691410918 instance=ExtResource("2_j8job")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.267089, -4.999996, -3.844901)
 
 [node name="Ghoul4" parent="Enemies" unique_id=16315766 instance=ExtResource("2_j8job")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.43145, -2.1205542, 1.3184996)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.69667, -5, 7.0250974)
 
 [node name="Ghoul5" parent="Enemies" unique_id=1312230064 instance=ExtResource("2_j8job")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.175694, -2.1205542, -2.521579)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.12601, -5, -20.290012)
 
 [node name="Fiend" parent="Enemies" unique_id=1432589674 instance=ExtResource("3_3f78f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.968037, -2, 9.266079)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.483421, -5, 19.474966)
 
 [node name="Fiend2" parent="Enemies" unique_id=1878183636 instance=ExtResource("3_3f78f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.323244, -2, 4.915812)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.583038, -5, -14.874963)
 
 [node name="Fiend3" parent="Enemies" unique_id=92895107 instance=ExtResource("3_3f78f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.846184, -2, 1.0407286)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.418007, -5.000002, -14.910084)
 
 [node name="Fiend4" parent="Enemies" unique_id=342559715 instance=ExtResource("3_3f78f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.846184, -2, 6.0407286)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.406563, -5, 9.375563)
+
+[node name="Leaper" parent="Enemies" unique_id=24567430 instance=ExtResource("4_k8do8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.400774, -5, -23.249495)
+leap_range = 30.0
+leap_force = 20.0
+
+[node name="Leaper3" parent="Enemies" unique_id=209316998 instance=ExtResource("4_k8do8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.71598, -5, -1.1963139)
+leap_range = 30.0
+leap_force = 20.0
+
+[node name="Leaper2" parent="Enemies" unique_id=2010694590 instance=ExtResource("4_k8do8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.985303, -5, 21.082893)
+leap_range = 30.0
+leap_force = 20.0
 
 [node name="Environment" type="Node" parent="." unique_id=2127158984]
 
 [node name="Mausoleum" parent="Environment" unique_id=1984913397 instance=ExtResource("3_j8job")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 90, 0, 0)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 90, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Environment" unique_id=581760606]
 transform = Transform3D(17.764112, 0, 0, 0, 1, 0, 0, 0, 2.964498, 77.22977, 0.0904603, -0.18234241)
@@ -83,7 +105,7 @@ collision_mask = 0
 shape = SubResource("ConvexPolygonShape3D_j8job")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Environment" unique_id=776209074]
-transform = Transform3D(7.071478e-08, -1, 0, -1.6177655, -4.371139e-08, 0, 0, 0, 2.964498, 59.758404, -1.6411462, -0.18234241)
+transform = Transform3D(1.221379e-07, -1, -2.5916464e-07, -1.6177655, -7.54979e-08, 0, 1.0677635e-14, -8.742278e-08, 2.964498, 59.758404, -1.6411462, -0.18234241)
 mesh = SubResource("PlaneMesh_j8job")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Environment/MeshInstance3D2" unique_id=100603403]

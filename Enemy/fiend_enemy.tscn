@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://3j4jqd73qq5e" path="res://Enemy/fiend_fireball.tscn" id="3_3j71v"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3j71v"]
-albedo_color = Color(0.8235294, 0, 0, 1)
+albedo_color = Color(0.56609225, 1.3837591e-06, 3.3691526e-07, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_woqbv"]
 material = SubResource("StandardMaterial3D_3j71v")
