@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://kmboh0cmf6mb"]
+
+[ext_resource type="PackedScene" uid="uid://dshhth2hutp67" path="res://Enemy/base_enemy.tscn" id="1_bw536"]
+[ext_resource type="Script" uid="uid://cqclok0uwgijo" path="res://Enemy/fiend_enemy.gd" id="2_cpwag"]
+[ext_resource type="PackedScene" uid="uid://3j4jqd73qq5e" path="res://Enemy/fiend_fireball.tscn" id="3_3j71v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3j71v"]
+albedo_color = Color(0.8235294, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_woqbv"]
+material = SubResource("StandardMaterial3D_3j71v")
+
+[node name="Fiend" unique_id=2141865840 instance=ExtResource("1_bw536")]
+script = ExtResource("2_cpwag")
+preferred_range = 12.0
+stop_range = 8.0
+attack_cooldown = 2.5
+fireball_scene = ExtResource("3_3j71v")
+
+[node name="BulletSpawnMarker" parent="." index="2" unique_id=1461186589]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1797474, -0.96174437)
+
+[node name="MeshInstance3D" parent="." index="4" unique_id=1751315410]
+mesh = SubResource("CylinderMesh_woqbv")

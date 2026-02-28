@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bf5eg8wvt0fvu" path="res://Player/player.tscn" id="1_62w18"]
 [ext_resource type="PackedScene" uid="uid://kpirgxt8ghgc" path="res://Enemy/ghoul_enemy.tscn" id="2_j8job"]
+[ext_resource type="PackedScene" uid="uid://kmboh0cmf6mb" path="res://Enemy/fiend_enemy.tscn" id="3_3f78f"]
 [ext_resource type="PackedScene" uid="uid://btxa0o25fwpub" path="res://Models/Mausoleum.glb" id="3_j8job"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fj7yv"]
@@ -53,6 +54,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.43145, -2.1205542, 1.31849
 
 [node name="Ghoul5" parent="Enemies" unique_id=1312230064 instance=ExtResource("2_j8job")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.175694, -2.1205542, -2.521579)
+
+[node name="Fiend" parent="Enemies" unique_id=1432589674 instance=ExtResource("3_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.968037, -2, 9.266079)
+
+[node name="Fiend2" parent="Enemies" unique_id=1878183636 instance=ExtResource("3_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.323244, -2, 4.915812)
+
+[node name="Fiend3" parent="Enemies" unique_id=92895107 instance=ExtResource("3_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.846184, -2, 1.0407286)
+
+[node name="Fiend4" parent="Enemies" unique_id=342559715 instance=ExtResource("3_3f78f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.846184, -2, 6.0407286)
 
 [node name="Environment" type="Node" parent="." unique_id=2127158984]
 

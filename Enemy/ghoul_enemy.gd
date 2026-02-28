@@ -1,7 +1,7 @@
 class_name GhoulEnemy extends BaseEnemy
 
 @export_group("Ghoul Attack")
-@export var attack_range: float = 3.0
+@export var attack_range: float = 3.5
 @export var attack_damage: int = 15
 @export var attack_cooldown: float = 1.5
 
@@ -64,5 +64,6 @@ func finish_attack() -> void:
 
 func _on_attack_hitbox_body_entered(body: Node3D) -> void:
 	if body.has_method("take_damage") and body is Player:
+		attack_hitbox.set_deferred("monitoring", false)
 		body.take_damage(attack_damage)
-		attack_hitbox.monitoring = false
+		

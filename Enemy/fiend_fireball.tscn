@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://3j4jqd73qq5e"]
+
+[ext_resource type="PackedScene" uid="uid://c5o66lq5ohpk7" path="res://Weapons/bullet.tscn" id="1_kqdym"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kqdym"]
+albedo_color = Color(0.858994, 0.30521297, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.43529412, 0, 1)
+emission_energy_multiplier = 10.0
+disable_receive_shadows = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_i4p84"]
+material = SubResource("StandardMaterial3D_kqdym")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xd2vp"]
+
+[node name="FiendFireball" unique_id=1594382983 instance=ExtResource("1_kqdym")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+collision_layer = 512
+collision_mask = 3
+speed = 20.0
+
+[node name="MeshInstance3D" parent="." index="0" unique_id=85184324]
+mesh = SubResource("SphereMesh_i4p84")
+
+[node name="CollisionShape3D" parent="." index="1" unique_id=1272254569]
+shape = SubResource("SphereShape3D_xd2vp")
