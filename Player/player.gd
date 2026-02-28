@@ -71,6 +71,13 @@ func _physics_process(delta: float) -> void:
 		State.HEAVY_SLAM:
 			handle_heavy_slam(delta)
 		
+	# Camera tilt logic
+	if current_state in [State.HEAVY_LEAP, State.HEAVY_SLAM]:
+		# Start tilting down immediately when the leap starts
+		camera.rotation_degrees.x = move_toward(camera.rotation_degrees.x, heavy_slam_camera_angle, camera_tilt_speed * delta)
+	else:
+		# Return to normal for all other states
+		camera.rotation_degrees.x = move_toward(camera.rotation_degrees.x, original_camera_rotation_x, camera_tilt_speed * delta)
 
 func handle_inputs(delta: float) -> void:
 	if current_state != State.NORMAL:
@@ -129,9 +136,6 @@ func move(delta: float, speed_multiplier: float = 1.0) -> void:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
 		velocity.z = move_toward(velocity.z, 0, friction * delta)
 	
-	# Smoothly move camera back to original rotation when not heavy slamming
-	camera.rotation_degrees.x = move_toward(camera.rotation_degrees.x, original_camera_rotation_x, camera_tilt_speed * delta)
-	
 	# Execute Movement
 	move_and_slide()
 
@@ -184,9 +188,6 @@ func start_heavy_slam() -> void:
 	velocity = Vector3.ZERO # Kill momentum before plunging
 
 func handle_heavy_slam(delta: float) -> void:
-	# Face camera downward smoothly
-	camera.rotation_degrees.x = move_toward(camera.rotation_degrees.x, heavy_slam_camera_angle, camera_tilt_speed * delta)
-	
 	# Plunge velocity (Down + Camera Forward/Backward/Strafe control)
 	var input_direction := Vector3.ZERO
 	if Input.is_action_pressed("up1"): input_direction -= transform.basis.z
