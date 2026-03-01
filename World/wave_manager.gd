@@ -7,8 +7,8 @@ class_name WaveManager extends Node
 	"Leaper": {"scene": preload("res://Enemy/leaper_enemy.tscn"), "cost": 4}
 }
 
-@export var initial_budget: int = 10
-@export var budget_multiplier: float = 1.5
+@export var initial_budget: int = 15
+@export var budget_multiplier: float = 1.15
 @export var spawn_interval: float = 0.1
 @export var breather_duration: float = 5.0
 
