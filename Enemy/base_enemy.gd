@@ -1,6 +1,6 @@
 class_name BaseEnemy extends CharacterBody3D
 
-enum State { IDLE, CHASE, ATTACK, STUNNED }
+enum State { IDLE, CHASE, ATTACK, STUNNED, RUN }
 var current_state: State = State.IDLE
 
 @export_group("Stats")

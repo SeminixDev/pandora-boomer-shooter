@@ -43,7 +43,7 @@ func _process_behavior(delta: float) -> void:
 				dir.y = 0
 				velocity.x = move_toward(velocity.x, dir.x * speed, acceleration * delta)
 				velocity.z = move_toward(velocity.z, dir.z * speed, acceleration * delta)
-
+		
 		State.ATTACK:
 			# Stop moving while attacking
 			velocity.x = move_toward(velocity.x, 0, friction * delta)

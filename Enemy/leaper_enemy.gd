@@ -25,21 +25,52 @@ func _process_behavior(delta: float) -> void:
 			
 		State.CHASE:
 			if not target: return
+			
+			# If attack isn't ready, we should be running/evading
+			if time_since_last_attack < attack_cooldown:
+				current_state = State.RUN
+				return
+				
 			face_target(delta)
 			var dist = global_position.distance_to(target.global_position)
 			
-			if dist <= leap_range and time_since_last_attack >= attack_cooldown:
+			if dist <= leap_range:
 				start_telegraph()
 			else:
+				# Move towards the player to get in leap range
 				var dir = global_position.direction_to(target.global_position).normalized()
 				velocity.x = move_toward(velocity.x, dir.x * speed, acceleration * delta)
 				velocity.z = move_toward(velocity.z, dir.z * speed, acceleration * delta)
 
+		State.RUN:
+			if not target:
+				current_state = State.IDLE
+				return
+			
+			# Attack is ready again - start chasing
+			if time_since_last_attack >= attack_cooldown:
+				current_state = State.CHASE
+				return
+				
+			face_target(delta) # Keep looking at the player while retreating
+			var dist = global_position.distance_to(target.global_position)
+			
+			if dist < leap_range:
+				# Move away from the player
+				var dir = target.global_position.direction_to(global_position).normalized()
+				velocity.x = move_toward(velocity.x, dir.x * speed, acceleration * delta)
+				velocity.z = move_toward(velocity.z, dir.z * speed, acceleration * delta)
+			else:
+				# Safe leap distance, apply friction to stop and hold position
+				velocity.x = move_toward(velocity.x, 0, friction * delta)
+				velocity.z = move_toward(velocity.z, 0, friction * delta)
+
 		State.ATTACK:
 			if not lunge_hitbox.monitoring:
+				# Telegraphing phase: keep aiming at the player
 				face_target(delta, 15.0) 
 			else:
-				# Don't turn mid-air.
+				# Air phase: wait to land
 				if is_on_floor() and velocity.y <= 0:
 					finish_attack()
 
