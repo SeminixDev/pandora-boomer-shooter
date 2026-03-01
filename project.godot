@@ -25,6 +25,11 @@ boot_splash/layer_11=""
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 
+[godot_hub]
+
+godot_hub/engine/version="4.6.1-stable"
+godot_hub/open_time="2026-03-01 13:30:12.271367"
+
 [gui]
 
 theme/custom_font="uid://dignbh018bdx7"

@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://dshhth2hutp67"]
 
 [ext_resource type="Script" uid="uid://biagln1y5nsbd" path="res://Enemy/base_enemy.gd" id="1_2pb1h"]
+[ext_resource type="AudioStream" uid="uid://cko65k4wpn045" path="res://SFX/Enemy Hurt.wav" id="2_r6ij1"]
+[ext_resource type="AudioStream" uid="uid://bix6bglp0hkmg" path="res://SFX/Enemy Dies.wav" id="3_ifwqb"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_px1sc"]
 
@@ -42,6 +44,17 @@ shape = SubResource("CylinderShape3D_rfmx6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1751315410]
 mesh = SubResource("CylinderMesh_qsll7")
+
+[node name="HurtSound" type="AudioStreamPlayer3D" parent="." unique_id=905294488]
+unique_name_in_owner = true
+stream = ExtResource("2_r6ij1")
+
+[node name="AttackSound" type="AudioStreamPlayer3D" parent="." unique_id=1526954514]
+unique_name_in_owner = true
+
+[node name="DeathSound" type="AudioStreamPlayer3D" parent="." unique_id=2084710797]
+unique_name_in_owner = true
+stream = ExtResource("3_ifwqb")
 
 [connection signal="body_entered" from="AggroArea" to="." method="_on_aggro_area_body_entered"]
 [connection signal="body_exited" from="AggroArea" to="." method="_on_aggro_area_body_exited"]

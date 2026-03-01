@@ -14,6 +14,9 @@ var current_health: int = max_health
 
 @export_group("Dependencies")
 @onready var aggro_area: Area3D = %AggroArea
+@onready var hurt_sound: AudioStreamPlayer3D = %HurtSound
+@onready var attack_sound: AudioStreamPlayer3D = %AttackSound
+@onready var death_sound: AudioStreamPlayer3D = %DeathSound
 var target: Node3D = null
 
 var is_dead: bool = false
@@ -70,6 +73,9 @@ func take_damage(amount: int) -> void:
 func apply_hit(amount: int, knockback: Vector3, stun_duration: float) -> void:
 	current_health -= amount
 	
+	hurt_sound.pitch_scale = randf_range(0.8, 1.2)
+	hurt_sound.play()
+	
 	if stun_duration > 0:
 		current_state = State.STUNNED
 		stun_timer = stun_duration
@@ -94,6 +100,11 @@ func die() -> void:
 	if is_dead: return
 	is_dead = true
 	enemy_died.emit(self)
+	
+	death_sound.reparent(get_parent())
+	death_sound.pitch_scale = randf_range(0.8, 1.2)
+	death_sound.play()
+	
 	queue_free()
 
 # --- Targetting  ---
