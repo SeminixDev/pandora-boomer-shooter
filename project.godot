@@ -25,6 +25,10 @@ boot_splash/layer_11=""
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 
+[gui]
+
+theme/custom_font="uid://dignbh018bdx7"
+
 [input]
 
 up1={
