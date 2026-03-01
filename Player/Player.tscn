@@ -387,6 +387,8 @@ unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.368, 0, -0.615)
 script = ExtResource("6_vtle1")
 bullet_scene = ExtResource("6_od3ui")
+pellets_per_shot = 5
+spread_angle_deg = 4.0
 
 [node name="GunAnimationPivot" type="Node3D" parent="Gun" unique_id=160218141]
 
