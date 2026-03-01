@@ -2,12 +2,12 @@ class_name WaveManager extends Node
 
 # Dictionary holding enemy scenes and their budget cost
 @export var enemy_pool: Dictionary = {
-	"Ghoul": {"scene": preload("res://Enemy/ghoul_enemy.tscn"), "cost": 1},
-	"Fiend": {"scene": preload("res://Enemy/fiend_enemy.tscn"), "cost": 2},
-	"Leaper": {"scene": preload("res://Enemy/leaper_enemy.tscn"), "cost": 4}
+	"Ghoul": {"scene": preload("res://Enemy/ghoul_enemy.tscn"), "cost": 3},
+	"Fiend": {"scene": preload("res://Enemy/fiend_enemy.tscn"), "cost": 5},
+	"Leaper": {"scene": preload("res://Enemy/leaper_enemy.tscn"), "cost": 7}
 }
 
-@export var initial_budget: int = 10
+@export var initial_budget: int = 12
 @export var budget_multiplier: float = 1.15
 @export var spawn_interval: float = 0.1
 @export var breather_duration: float = 5.0

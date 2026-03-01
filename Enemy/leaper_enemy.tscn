@@ -15,6 +15,7 @@ leap_force = 20.0
 leap_damage = 25
 telegraph_duration = 0.7
 attack_cooldown = 4.0
+max_health = 25
 
 [node name="CollisionShape3D" parent="." index="3" unique_id=1782547481]
 transform = Transform3D(1.5, 0, 0, 0, -6.556708e-08, -1.5, 0, 1.5, -6.556708e-08, 0, 0, 0)
@@ -26,6 +27,8 @@ mesh = null
 
 [node name="LungeHitbox" type="Area3D" parent="." index="5" unique_id=1607212943]
 unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
 monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LungeHitbox" index="0" unique_id=2111191629]
