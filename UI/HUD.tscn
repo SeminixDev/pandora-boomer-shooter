@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://dkh6suf4r2ewn"]
+
+[ext_resource type="Script" uid="uid://d1xl1qc0l7xqn" path="res://UI/hud.gd" id="1_yixhe"]
+
+[node name="Hud" type="Control" unique_id=18066624]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yixhe")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2066121523]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainerTop" type="VBoxContainer" parent="MarginContainer" unique_id=1023277610]
+layout_mode = 2
+
+[node name="WaveLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainerTop" unique_id=1250503730]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+text = "Wave: 1"
+fit_content = true
+
+[node name="DifficultyLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainerTop" unique_id=1792588027]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+text = "Current Difficulty: 0"
+fit_content = true
+
+[node name="EnemiesLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainerTop" unique_id=915286567]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+text = "Active Enemies: 0"
+fit_content = true
+
+[node name="TimerLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainerTop" unique_id=884326777]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+text = "Next Wave in: 0.0s"
+fit_content = true
+
+[node name="VBoxContainerBottom" type="VBoxContainer" parent="MarginContainer" unique_id=444996093]
+layout_mode = 2
+alignment = 2
+
+[node name="HeavyCooldownLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainerBottom" unique_id=252815563]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.3882353, 0.29803923, 1)
+theme_override_font_sizes/normal_font_size = 24
+text = "Haevy Attack Charging..."
+fit_content = true
+
+[node name="HealthBar" type="ProgressBar" parent="MarginContainer/VBoxContainerBottom" unique_id=647656841]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 24
+step = 1.0
+rounded = true
