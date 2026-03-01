@@ -27,9 +27,9 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node3D) -> void:
 	# Damage the object if possible
 	if body.has_method("take_damage"):
-		if body == Player and damage_player:
+		if body is Player and damage_player:
 			body.take_damage(damage)
-		if body == BaseEnemy and damage_enemy:
+		if body is BaseEnemy and damage_enemy:
 			body.take_damage(damage)
 	
 	# Destroy the bullet upon hitting anything (enemy, wall, etc.)

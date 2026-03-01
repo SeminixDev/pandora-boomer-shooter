@@ -4,6 +4,9 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_borst"]
 albedo_color = Color(0.37321135, 0.38521942, 0.28532797, 1)
+emission_enabled = true
+emission = Color(0.13682562, 0.13682577, 0.13682568, 1)
+emission_energy_multiplier = 10.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_k8lgp"]
 material = SubResource("StandardMaterial3D_borst")
@@ -11,9 +14,8 @@ material = SubResource("StandardMaterial3D_borst")
 [node name="PlayerBullet" unique_id=1594382983 instance=ExtResource("1_borst")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 collision_mask = 5
-speed = 40.0
-damage = 10
-lifetime = 4.0
+damage = 4
+lifetime = 1.0
 damage_player = false
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=85184324]
