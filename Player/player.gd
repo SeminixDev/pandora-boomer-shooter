@@ -53,6 +53,10 @@ func _ready() -> void:
 	time_since_last_quick = quick_melee_cooldown
 	
 	scythe.attack_finished.connect(_on_scythe_attack_finished)
+	
+	floor_max_angle = deg_to_rad(60.0)
+	floor_constant_speed = true
+	floor_snap_length = 0.5
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor() and current_state != State.HEAVY_SLAM:

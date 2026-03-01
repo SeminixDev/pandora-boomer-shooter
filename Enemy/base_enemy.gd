@@ -23,6 +23,10 @@ signal enemy_died(enemy_node)
 
 func _ready() -> void:
 	current_health = max_health
+	
+	floor_max_angle = deg_to_rad(60.0)
+	floor_constant_speed = true
+	floor_snap_length = 0.5
 
 func _physics_process(delta: float) -> void:
 	# Add gravity
