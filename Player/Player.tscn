@@ -312,6 +312,7 @@ heavy_leap_upward_force = 10.0
 heavy_leap_forward_force = 7.0
 heavy_slam_downward_force = 20.0
 heavy_slam_speed_multiplier = 2.0
+max_health = 150
 ranged_cooldown = 0.11
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=990979104]

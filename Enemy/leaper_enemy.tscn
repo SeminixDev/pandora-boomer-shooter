@@ -7,6 +7,7 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r0rui"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_r0rui"]
+radius = 0.30079335
 
 [node name="Leaper" unique_id=2141865840 instance=ExtResource("1_jn4m6")]
 script = ExtResource("2_r0rui")
