@@ -18,7 +18,7 @@ material = SubResource("StandardMaterial3D_kqdym")
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 collision_layer = 512
 speed = 20.0
-damage = null
+damage = 15
 lifetime = null
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=85184324]

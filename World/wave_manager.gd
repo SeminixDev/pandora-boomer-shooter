@@ -2,12 +2,12 @@ class_name WaveManager extends Node
 
 # Dictionary holding enemy scenes and their budget cost
 @export var enemy_pool: Dictionary = {
-	"Ghoul": {"scene": preload("res://Enemy/ghoul_enemy.tscn"), "cost": 1},
-	"Fiend": {"scene": preload("res://Enemy/fiend_enemy.tscn"), "cost": 2},
-	"Leaper": {"scene": preload("res://Enemy/leaper_enemy.tscn"), "cost": 4}
+	"Ghoul": {"scene": preload("res://Enemy/ghoul_enemy.tscn"), "cost": 3, "weight": 8.0},
+	"Fiend": {"scene": preload("res://Enemy/fiend_enemy.tscn"), "cost": 5, "weight": 5.0},
+	"Leaper": {"scene": preload("res://Enemy/leaper_enemy.tscn"), "cost": 7, "weight": 2.0}
 }
 
-@export var initial_budget: int = 15
+@export var initial_budget: int = 12
 @export var budget_multiplier: float = 1.15
 @export var spawn_interval: float = 0.1
 @export var breather_duration: float = 5.0
@@ -23,7 +23,13 @@ var breather_timer: Timer
 @onready var spawn_points: Array[Node] = []
 @onready var player: Player = %Player
 
-func _ready() -> void:
+var started: bool = false
+
+func start() -> void:
+	if started:
+		return
+	started = true
+	
 	# Find all spawn points in the world (Make sure to group your spawn points under a Node called "SpawnPoints" in world.tscn)
 	var spawns_node = get_tree().current_scene.get_node_or_null("SpawnPoints")
 	if spawns_node:
@@ -45,7 +51,7 @@ func _ready() -> void:
 
 func start_wave() -> void:
 	print("Starting Wave: ", current_wave)
-	total_wave_budget = int(initial_budget * pow(budget_multiplier, current_wave - 1))
+	total_wave_budget = int(initial_budget * pow(budget_multiplier, current_wave - 1)) + current_wave * 2 - 2 
 	current_budget = total_wave_budget
 	spawn_timer.start()
 
@@ -59,17 +65,31 @@ func _on_spawn_timer_timeout() -> void:
 	if safe_points.is_empty():
 		return # Try again next tick
 		
-	# Pick a random valid enemy within budget
+	# 1. Gather affordable enemies and calculate their total combined weight
 	var affordable = []
+	var total_weight: float = 0.0
+	
 	for key in enemy_pool:
-		if enemy_pool[key]["cost"] <= current_budget:
-			affordable.append(enemy_pool[key])
+		var enemy_data = enemy_pool[key]
+		if enemy_data["cost"] <= current_budget:
+			affordable.append(enemy_data)
+			total_weight += enemy_data.get("weight", 1.0) # Fallback to 1.0 if no weight
 			
 	if affordable.is_empty():
 		current_budget = 0 # Can't afford anything else
 		return
 		
-	var chosen_enemy = affordable.pick_random()
+	# 2. Roll a random number between 0 and the total weight
+	var roll = randf_range(0.0, total_weight)
+	var chosen_enemy = affordable[0] # Fallback
+	
+	# 3. Subtract weights until we hit 0 to find the winner
+	for enemy_data in affordable:
+		roll -= enemy_data.get("weight", 1.0)
+		if roll <= 0.0:
+			chosen_enemy = enemy_data
+			break
+			
 	var spawn_point = safe_points.pick_random()
 	
 	# Spend budget and spawn
@@ -97,7 +117,9 @@ func check_wave_complete() -> void:
 
 # --- Helpers for the HUD ---
 func is_in_breather() -> bool:
+	if not breather_timer: return true
 	return not breather_timer.is_stopped()
 
 func get_time_until_next_wave() -> float:
+	if not breather_timer: return 0.0
 	return breather_timer.time_left
