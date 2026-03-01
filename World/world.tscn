@@ -5,17 +5,22 @@
 [ext_resource type="PackedScene" uid="uid://x6lpxaiqs3bf" path="res://World/spawn_point.tscn" id="4_3f78f"]
 [ext_resource type="PackedScene" uid="uid://c5m0kq5f1kx50" path="res://World/wave_manager.tscn" id="6_bkhv4"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fj7yv"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3f78f"]
+sky_top_color = Color(0.039215688, 0, 0.06666667, 1)
+sky_horizon_color = Color(0.23921569, 0, 0.043137256, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0.14117648, 0, 0.03137255, 1)
+sun_angle_max = 180.0
+sun_curve = 1e-05
 
 [sub_resource type="Sky" id="Sky_tlwt5"]
-sky_material = SubResource("ProceduralSkyMaterial_fj7yv")
+sky_material = SubResource("ProceduralSkyMaterial_3f78f")
 
 [sub_resource type="Environment" id="Environment_aqk2v"]
 background_mode = 2
+background_color = Color(0.6570455, 0.3329213, 0.37564927, 1)
+background_energy_multiplier = 0.7
 sky = SubResource("Sky_tlwt5")
-tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_j8job"]
@@ -29,7 +34,10 @@ points = PackedVector3Array(-1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0, 1)
 environment = SubResource("Environment_aqk2v")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1147341089]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+transform = Transform3D(0.99273217, -0.008625281, 0.1200353, -0.12034477, -0.071150556, 0.9901792, 0, -0.9974283, -0.07167145, 0, 0, 0)
+light_color = Color(0.8509804, 0.83137256, 0.6392157, 1)
+light_energy = 0.4
+light_angular_distance = 37.32
 shadow_enabled = true
 
 [node name="Player" parent="." unique_id=1346923229 instance=ExtResource("1_62w18")]
