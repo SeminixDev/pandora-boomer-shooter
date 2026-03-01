@@ -2,14 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://dshhth2hutp67" path="res://Enemy/base_enemy.tscn" id="1_jn4m6"]
 [ext_resource type="Script" uid="uid://bn8w5u3b86psd" path="res://Enemy/leaper_enemy.gd" id="2_r0rui"]
+[ext_resource type="PackedScene" uid="uid://cl4ylrgqua0a4" path="res://Models/Leaper/scene.gltf" id="3_2i7j1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r0rui"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r0rui"]
-albedo_color = Color(0.42223766, 0.2979863, 0.58260036, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_r0rui"]
-material = SubResource("StandardMaterial3D_r0rui")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_r0rui"]
 
@@ -30,7 +25,7 @@ shape = SubResource("CapsuleShape3D_r0rui")
 
 [node name="MeshInstance3D" parent="." index="4" unique_id=1751315410]
 transform = Transform3D(1.5, 0, 0, 0, -6.556708e-08, -1.5, 0, 1.5, -6.556708e-08, 0, 0, 0)
-mesh = SubResource("CapsuleMesh_r0rui")
+mesh = null
 
 [node name="LungeHitbox" type="Area3D" parent="." index="5" unique_id=1607212943]
 unique_name_in_owner = true
@@ -39,3 +34,6 @@ monitoring = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LungeHitbox" index="0" unique_id=2111191629]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, -1.1933339)
 shape = SubResource("SphereShape3D_r0rui")
+
+[node name="Model" parent="." index="6" unique_id=1897828683 instance=ExtResource("3_2i7j1")]
+transform = Transform3D(-0.53, -1.3444975e-08, -6.799072e-08, 4.4232408e-08, 0.33466, -0.41097766, 5.3357276e-08, -0.41097766, -0.33466, 0, -0.3018375, 0.3958242)
