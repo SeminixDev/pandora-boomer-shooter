@@ -10,7 +10,7 @@
 
 [node name="Leaper" unique_id=2141865840 instance=ExtResource("1_jn4m6")]
 script = ExtResource("2_r0rui")
-leap_range = 15.0
+leap_range = 20.0
 leap_force = 20.0
 leap_damage = 25
 telegraph_duration = 0.7

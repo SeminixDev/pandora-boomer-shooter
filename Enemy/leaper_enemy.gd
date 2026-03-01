@@ -19,36 +19,29 @@ func _ready() -> void:
 func _process_behavior(delta: float) -> void:
 	time_since_last_attack += delta
 	
-	var dist: float = 0.0
-	if target: 
-		dist = global_position.distance_to(target.global_position)
-	
 	match current_state:
 		State.IDLE:
 			if target: current_state = State.CHASE
 			
 		State.CHASE:
-			if not target:
-				current_state = State.IDLE
-				return
-			
+			if not target: return
 			face_target(delta)
+			var dist = global_position.distance_to(target.global_position)
 			
-			if dist <= leap_range:
-				if time_since_last_attack >= attack_cooldown:
-					start_telegraph()
-				else:
-					pass
-			
+			if dist <= leap_range and time_since_last_attack >= attack_cooldown:
+				start_telegraph()
 			else:
 				var dir = global_position.direction_to(target.global_position).normalized()
 				velocity.x = move_toward(velocity.x, dir.x * speed, acceleration * delta)
 				velocity.z = move_toward(velocity.z, dir.z * speed, acceleration * delta)
 
 		State.ATTACK:
-			# If we hit the floor after leaving it, the leap is done
-			if is_on_floor() and velocity.y <= 0 and lunge_hitbox.monitoring:
-				finish_attack()
+			if not lunge_hitbox.monitoring:
+				face_target(delta, 15.0) 
+			else:
+				# Don't turn mid-air.
+				if is_on_floor() and velocity.y <= 0:
+					finish_attack()
 
 func start_telegraph() -> void:
 	current_state = State.ATTACK
@@ -64,19 +57,33 @@ func start_telegraph() -> void:
 		execute_leap()
 
 func execute_leap() -> void:
+	if not target: return
+	
 	lunge_hitbox.monitoring = true
-	# Give a small upward boost + massive forward boost
+	
+	# Force an instant snap to face the target perfectly before launching
+	var look_target = target.global_position
+	look_target.y = global_position.y
+	look_at(look_target, Vector3.UP)
+	
+	# Calculate trajectory
 	lunge_direction = global_position.direction_to(target.global_position)
 	lunge_direction.y = 0.0
 	lunge_direction = lunge_direction.normalized()
 	
 	velocity = lunge_direction * leap_force
-	velocity.y = 5.0 # Slight arc
+	velocity.y = 5.0 # Slight arc upward
 
 func finish_attack() -> void:
 	current_state = State.CHASE
 	lunge_hitbox.monitoring = false
-
+	
+	# Kill the leap momentum instantly so it doesn't slide
+	velocity.x = 0.0
+	velocity.z = 0.0
+	
+	time_since_last_attack = 0.0
+	
 func _on_lunge_hitbox_body_entered(body: Node3D) -> void:
 	if body.has_method("take_damage") and body is Player:
 		body.take_damage(leap_damage)
