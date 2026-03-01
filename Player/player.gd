@@ -24,9 +24,11 @@ var current_health: int = max_health
 
 @export_group("Melee Attack")
 @export var melee_damage: int = 100
-@export var melee_cooldown: float = 0.6
+@export var quick_melee_cooldown: float = 0.6
+@export var heavy_melee_cooldown: float = 5.0
 @export var heavy_charge_time: float = 0.3 # Time holding button to trigger heavy
-var time_since_last_melee: float = 0.0
+var time_since_last_quick: float = 0.0
+var time_since_last_heavy: float = 0.0
 var melee_hold_timer: float = 0.0
 
 @export_group("Ranged Attack")
@@ -53,7 +55,8 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor() and current_state != State.HEAVY_SLAM:
 		velocity += get_gravity() * delta
 	
-	time_since_last_melee += delta
+	time_since_last_quick += delta
+	time_since_last_heavy += delta
 	time_since_last_ranged += delta
 	
 	handle_inputs(delta)
@@ -96,12 +99,12 @@ func handle_inputs(delta: float) -> void:
 	# Tap vs Hold Logic
 	if Input.is_action_pressed("down2"):
 		melee_hold_timer += delta
-		if melee_hold_timer >= heavy_charge_time and time_since_last_melee >= melee_cooldown:
+		if melee_hold_timer >= heavy_charge_time and time_since_last_heavy >= heavy_melee_cooldown:
 			start_heavy_leap()
 			melee_hold_timer = 0.0
 	
 	if Input.is_action_just_released("down2"):
-		if melee_hold_timer > 0.0 and melee_hold_timer < heavy_charge_time and time_since_last_melee >= melee_cooldown:
+		if melee_hold_timer > 0.0 and melee_hold_timer < heavy_charge_time and time_since_last_quick >= quick_melee_cooldown:
 			start_quick_attack()
 		melee_hold_timer = 0.0
 
@@ -190,13 +193,13 @@ func _on_scythe_attack_finished() -> void:
 
 func start_quick_attack() -> void:
 	current_state = State.QUICK_ATTACK
-	time_since_last_melee = 0.0
+	time_since_last_quick = 0.0
 	velocity += -transform.basis.z * quick_lunge_force 
 	scythe.play_quick_attack()
 
 func start_heavy_leap() -> void:
 	current_state = State.HEAVY_LEAP
-	time_since_last_melee = 0.0
+	time_since_last_heavy = 0.0
 	velocity.y += heavy_leap_upward_force
 	velocity += -transform.basis.z * heavy_leap_forward_force
 	scythe.play_heavy_leap()
