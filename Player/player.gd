@@ -46,6 +46,8 @@ var shots_left: int = 2
 @onready var camera: Camera3D = %MainCamera
 var original_camera_rotation_x: float = 0.0
 
+@onready var shoot_sound: AudioStreamPlayer3D = %ShootSound
+
 func _ready() -> void:
 	current_health = max_health
 	
@@ -165,6 +167,9 @@ func shoot() -> void:
 		return
 	
 	# Shoot
+	shoot_sound.pitch_scale = randf_range(0.9, 1.1)
+	shoot_sound.play()
+	
 	if shots_left <= 0:
 		shots_left = max_shots
 	shots_left -= 1
