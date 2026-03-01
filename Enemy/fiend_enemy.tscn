@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dshhth2hutp67" path="res://Enemy/base_enemy.tscn" id="1_bw536"]
 [ext_resource type="Script" uid="uid://cqclok0uwgijo" path="res://Enemy/fiend_enemy.gd" id="2_cpwag"]
 [ext_resource type="PackedScene" uid="uid://3j4jqd73qq5e" path="res://Enemy/fiend_fireball.tscn" id="3_3j71v"]
-[ext_resource type="PackedScene" uid="uid://cyqrh0caddrc0" path="res://Enemy/fiend_model.tscn" id="4_woqbv"]
+[ext_resource type="PackedScene" uid="uid://cyqrh0caddrc0" path="res://Models/fiend_model.tscn" id="4_woqbv"]
 
 [node name="Fiend" unique_id=2141865840 instance=ExtResource("1_bw536")]
 script = ExtResource("2_cpwag")

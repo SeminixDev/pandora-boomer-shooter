@@ -2,6 +2,25 @@
 
 [ext_resource type="Script" uid="uid://d1xl1qc0l7xqn" path="res://UI/hud.gd" id="1_yixhe"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yixhe"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijstf"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.76862746, 0.105882354, 0.105882354, 1)
+
 [node name="Hud" type="Control" unique_id=18066624]
 layout_mode = 3
 anchors_preset = 15
@@ -10,6 +29,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yixhe")
+
+[node name="HeavyCooldownLabel" type="RichTextLabel" parent="." unique_id=252815563]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 1
+offset_left = 760.0
+offset_top = 1026.0
+offset_right = 1160.0
+offset_bottom = 1060.0
+theme_override_colors/default_color = Color(1, 0.3882353, 0.29803923, 1)
+theme_override_font_sizes/normal_font_size = 24
+text = "Heavy Attack Charging"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=2066121523]
 layout_mode = 1
@@ -31,6 +66,14 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 24
 text = "Wave: 1"
+fit_content = true
+
+[node name="ScoreLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainerTop" unique_id=1998371600]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+text = "Score: 0
+"
 fit_content = true
 
 [node name="DifficultyLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainerTop" unique_id=1792588027]
@@ -58,19 +101,14 @@ fit_content = true
 layout_mode = 2
 alignment = 2
 
-[node name="HeavyCooldownLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainerBottom" unique_id=252815563]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/default_color = Color(1, 0.3882353, 0.29803923, 1)
-theme_override_font_sizes/normal_font_size = 24
-text = "Haevy Attack Charging..."
-fit_content = true
-
 [node name="HealthBar" type="ProgressBar" parent="MarginContainer/VBoxContainerBottom" unique_id=647656841]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(400, 30)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 24
+theme_override_styles/background = SubResource("StyleBoxFlat_yixhe")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ijstf")
 step = 1.0
-rounded = true
+value = 50.0
+show_percentage = false

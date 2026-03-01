@@ -1,11 +1,12 @@
 extends Control
 
-@onready var wave_label: Label = %WaveLabel
-@onready var difficulty_label: Label = %DifficultyLabel
-@onready var enemies_label: Label = %EnemiesLabel
-@onready var timer_label: Label = %TimerLabel
-@onready var health_label: Label = %HealthLabel
-@onready var heavy_cooldown_bar: ProgressBar = %HeavyCooldownBar
+@onready var wave_label: RichTextLabel = %WaveLabel
+@onready var score_label: RichTextLabel = %ScoreLabel
+@onready var difficulty_label: RichTextLabel = %DifficultyLabel
+@onready var enemies_label: RichTextLabel = %EnemiesLabel
+@onready var timer_label: RichTextLabel = %TimerLabel
+@onready var health_bar: ProgressBar = %HealthBar
+@onready var heavy_cooldown_label: RichTextLabel = %HeavyCooldownLabel
 
 var player: Player
 var wave_manager: WaveManager
@@ -28,18 +29,19 @@ func _process(_delta: float) -> void:
 func update_player_stats() -> void:
 	if not player: return
 	
-	# Health
-	health_label.text = "Health: %d / %d" % [player.current_health, player.max_health]
+	# --- Health Bar ---
+	health_bar.max_value = player.max_health
+	health_bar.value = player.current_health
 	
-	# Heavy Attack Cooldown
-	var cooldown_ratio = clamp(player.time_since_last_heavy / player.heavy_melee_cooldown, 0.0, 1.0)
-	heavy_cooldown_bar.value = cooldown_ratio * 100.0
+	# --- Heavy Attack Cooldown ---
+	var is_heavy_ready = player.time_since_last_heavy >= player.heavy_melee_cooldown
 	
-	# Change color to green when ready, gray/red when charging
-	if cooldown_ratio >= 1.0:
-		heavy_cooldown_bar.modulate = Color(0.2, 1.0, 0.2) # Bright Green
+	if is_heavy_ready:
+		heavy_cooldown_label.text = "Heavy Attack: READY"
+		heavy_cooldown_label.add_theme_color_override("default_color", Color(0.0, 0.897, 0.059, 1.0)) 
 	else:
-		heavy_cooldown_bar.modulate = Color(0.5, 0.5, 0.5) # Gray out
+		heavy_cooldown_label.text = "Heavy Attack: CHARGING..."
+		heavy_cooldown_label.add_theme_color_override("default_color", Color(0.376, 0.024, 0.0, 0.404))
 
 func update_wave_stats() -> void:
 	if not wave_manager: return

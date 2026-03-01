@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bf5eg8wvt0fvu"]
 
 [ext_resource type="Script" uid="uid://bu2lvhlw8hx1p" path="res://Player/player.gd" id="1_xhfnw"]
+[ext_resource type="PackedScene" uid="uid://dkh6suf4r2ewn" path="res://UI/HUD.tscn" id="2_od3ui"]
 [ext_resource type="PackedScene" uid="uid://bnfi2lyx5utkf" path="res://Models/Character.glb" id="3_btcbx"]
 [ext_resource type="PackedScene" uid="uid://djp66fmc2rjja" path="res://Models/ScythePlaceholder.glb" id="3_gwnis"]
 [ext_resource type="Script" uid="uid://crqq814bfu8qq" path="res://Weapons/scythe.gd" id="4_fhl08"]
@@ -319,6 +320,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 0, 0, 0)
+
+[node name="Hud" parent="CanvasLayer" unique_id=18066624 instance=ExtResource("2_od3ui")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=978073437]
 shape = SubResource("CylinderShape3D_btcbx")
