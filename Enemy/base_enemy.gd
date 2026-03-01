@@ -16,6 +16,8 @@ var current_health: int = max_health
 @onready var aggro_area: Area3D = %AggroArea
 var target: Node3D = null
 
+var is_dead: bool = false
+
 # State Variables
 var stun_timer: float = 0.0
 
@@ -89,6 +91,8 @@ func handle_stun_state(delta: float) -> void:
 	move_and_slide()
 
 func die() -> void:
+	if is_dead: return
+	is_dead = true
 	enemy_died.emit(self)
 	queue_free()
 

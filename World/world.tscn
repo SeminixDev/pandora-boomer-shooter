@@ -68,7 +68,6 @@ shadow_enabled = true
 unique_name_in_owner = true
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 41.199078, 2.112265, -0.76152754)
 collision_mask = 1
-max_health = 9999
 
 [node name="Enemies" type="Node" parent="." unique_id=828516008]
 
