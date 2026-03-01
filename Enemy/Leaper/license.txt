@@ -1,0 +1,11 @@
+Model Information:
+* title:	PSX INSECTOID DEMON
+* source:	https://sketchfab.com/3d-models/psx-insectoid-demon-14c296dd4fef4e12840f16ddf882f382
+* author:	Seifert (https://sketchfab.com/Peter_Seifert)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "PSX INSECTOID DEMON" (https://sketchfab.com/3d-models/psx-insectoid-demon-14c296dd4fef4e12840f16ddf882f382) by Seifert (https://sketchfab.com/Peter_Seifert) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

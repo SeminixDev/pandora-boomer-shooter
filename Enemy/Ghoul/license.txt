@@ -1,0 +1,11 @@
+Model Information:
+* title:	monster ps1 style
+* source:	https://sketchfab.com/3d-models/monster-ps1-style-4924dbb27a1b4fe48c99d68ad06ac9a1
+* author:	DAELHERI (https://sketchfab.com/DAELHERI)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "monster ps1 style" (https://sketchfab.com/3d-models/monster-ps1-style-4924dbb27a1b4fe48c99d68ad06ac9a1) by DAELHERI (https://sketchfab.com/DAELHERI) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
