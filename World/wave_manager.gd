@@ -23,8 +23,14 @@ var breather_timer: Timer
 @onready var spawn_points: Array[Node] = []
 @onready var player: Player = %Player
 
+var started: bool = false
+
 func start() -> void:
-		# Find all spawn points in the world (Make sure to group your spawn points under a Node called "SpawnPoints" in world.tscn)
+	if started:
+		return
+	started = true
+	
+	# Find all spawn points in the world (Make sure to group your spawn points under a Node called "SpawnPoints" in world.tscn)
 	var spawns_node = get_tree().current_scene.get_node_or_null("SpawnPoints")
 	if spawns_node:
 		spawn_points = spawns_node.get_children()

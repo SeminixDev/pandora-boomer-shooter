@@ -67,7 +67,6 @@ func shoot_fireball() -> void:
 	
 	fireball.global_position = spawn_marker.global_position
 	var aim_target = target.global_position
-	aim_target = Vector3(aim_target.x, global_position.y, aim_target.z)
 	var shoot_dir = spawn_marker.global_position.direction_to(aim_target)
 	fireball.set_direction(shoot_dir)
 

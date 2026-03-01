@@ -109,6 +109,28 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 shape = SubResource("BoxShape3D_3f78f")
 
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Environment/MainArea" unique_id=104475083]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -1.0008965, -4.630699, 20.446213)
+mesh = SubResource("BoxMesh_3f78f")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Environment/MainArea/MeshInstance3D5" unique_id=1128039844]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/MainArea/MeshInstance3D5/StaticBody3D" unique_id=1031429277]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+shape = SubResource("BoxShape3D_3f78f")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Environment/MainArea" unique_id=1517613763]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -0.9292507, -4.630699, -21.6102)
+mesh = SubResource("BoxMesh_3f78f")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Environment/MainArea/MeshInstance3D6" unique_id=1588531366]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/MainArea/MeshInstance3D6/StaticBody3D" unique_id=66681319]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+shape = SubResource("BoxShape3D_3f78f")
+
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="Environment/MainArea" unique_id=2020920066]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 40.37251, -4.630701, -4.9175625)
 mesh = SubResource("BoxMesh_3f78f")
@@ -134,6 +156,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45419312, -0.8805542, 0.08
 shape = SubResource("BoxShape3D_k8do8")
 
 [node name="Area3D" type="Area3D" parent="Environment/MainArea/PandoraBoxBody" unique_id=2132776591]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5752659, 0, 0)
 collision_layer = 2
 collision_mask = 2
 script = SubResource("GDScript_3f78f")
@@ -160,7 +183,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.790627, -4.999998, -31.383
 gizmo_extents = 1.0
 
 [node name="SpawnPoint4" parent="SpawnPoints" unique_id=1538147400 instance=ExtResource("4_3f78f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.360321, -5, -21.196966)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.054422, -5, -23.563114)
 gizmo_extents = 1.0
 
 [node name="SpawnPoint5" parent="SpawnPoints" unique_id=856024943 instance=ExtResource("4_3f78f")]
@@ -192,7 +215,7 @@ transform = Transform3D(0.8179869, 0.010825269, -0.575135, -0.012196429, 0.99992
 gizmo_extents = 1.0
 
 [node name="SpawnPoint13" parent="SpawnPoints" unique_id=582721909 instance=ExtResource("4_3f78f")]
-transform = Transform3D(0.8179869, 0.010825269, -0.575135, -0.012196429, 0.99992454, 0.0014743342, 0.5751076, 0.0058086207, 0.8180573, -0.18922424, -4.607831, -27.966103)
+transform = Transform3D(0.8179869, 0.010825269, -0.575135, -0.012196429, 0.99992454, 0.0014743342, 0.5751076, 0.0058086207, 0.8180573, -0.87397766, -4.607831, -29.339355)
 gizmo_extents = 1.0
 
 [node name="SpawnPoint14" parent="SpawnPoints" unique_id=202162559 instance=ExtResource("4_3f78f")]
