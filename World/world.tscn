@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ckx5xm6ryj5u1"]
 
-[ext_resource type="PackedScene" uid="uid://bf5eg8wvt0fvu" path="res://Player/player.tscn" id="1_62w18"]
+[ext_resource type="PackedScene" uid="uid://bf5eg8wvt0fvu" path="res://Player/Player.tscn" id="1_62w18"]
 [ext_resource type="PackedScene" uid="uid://br3dgyacjiihj" path="res://Environment/Main area.glb" id="3_k8do8"]
 [ext_resource type="PackedScene" uid="uid://x6lpxaiqs3bf" path="res://World/spawn_point.tscn" id="4_3f78f"]
 [ext_resource type="PackedScene" uid="uid://c5m0kq5f1kx50" path="res://World/wave_manager.tscn" id="6_bkhv4"]
@@ -24,7 +24,7 @@ sky = SubResource("Sky_tlwt5")
 glow_enabled = true
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_3f78f"]
-height = 42.03296
+height = 71.07709
 radius = 0.6621094
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3f78f"]
@@ -45,7 +45,7 @@ size = Vector3(2.501892, 3.7418213, 4.354248)
 [sub_resource type="GDScript" id="GDScript_3f78f"]
 script/source = "extends Area3D
 
-func _on_body_entered(body: Node3D) -> void:
+func _on_body_entered(_body: Node3D) -> void:
 	%WaveManager.start()
 "
 
@@ -90,7 +90,7 @@ debug_color = Color(0.92704755, 0.2716998, 0, 0.80100006)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.216972, 3.274448, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/MainArea/StairHelper2" unique_id=1126953731]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 5.867586, -6.462877, -0.39656925)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 5.867586, -6.4628773, -1.0327692)
 shape = SubResource("CylinderShape3D_3f78f")
 debug_color = Color(0.92704755, 0.2716998, 0, 0.80100006)
 
