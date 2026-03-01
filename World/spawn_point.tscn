@@ -19,24 +19,26 @@ curve = SubResource("Curve_xdxxc")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rbtjv"]
 emission_shape = 1
-emission_sphere_radius = 0.5
-gravity = Vector3(0, 0.7, 0)
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+gravity = Vector3(0.1, 1, 0.1)
 scale_curve = SubResource("CurveTexture_a26r0")
 color_ramp = SubResource("GradientTexture1D_stl4h")
 turbulence_enabled = true
-turbulence_noise_strength = 2.0
-turbulence_noise_scale = 4.0
+turbulence_noise_strength = 4.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y0f83"]
-vertex_color_use_as_albedo = true
+albedo_color = Color(0.07683582, 0.07683582, 0.07683582, 1)
 emission_enabled = true
-emission = Color(3.9553394, 0, 2.5208921, 1)
-emission_energy_multiplier = 2.0
+emission = Color(1.785511, 0.8450927, 2.4083686, 1)
+emission_energy_multiplier = 1.2
 
 [sub_resource type="SphereMesh" id="SphereMesh_f1hu4"]
 material = SubResource("StandardMaterial3D_y0f83")
-radius = 0.1
-height = 0.2
+radius = 0.2
+height = 0.4
 
 [sub_resource type="GDScript" id="GDScript_457uw"]
 script/source = "@tool
@@ -78,6 +80,7 @@ amount = 80
 lifetime = 1.5
 one_shot = true
 explosiveness = 0.8
+randomness = 0.33
 process_material = SubResource("ParticleProcessMaterial_rbtjv")
 draw_pass_1 = SubResource("SphereMesh_f1hu4")
 
