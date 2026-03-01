@@ -12,6 +12,7 @@ class_name WaveManager extends Node
 @export var spawn_interval: float = 0.1
 @export var breather_duration: float = 5.0
 
+var score: int = 0
 var current_wave: int = 1
 var current_budget: int = 0
 var total_wave_budget: int = 0
@@ -79,6 +80,13 @@ func _on_spawn_timer_timeout() -> void:
 
 func _on_enemy_died(enemy_node) -> void:
 	active_enemies -= 1
+	
+	var killed_cost: int = 0
+	if enemy_node is GhoulEnemy: killed_cost = 1
+	if enemy_node is FiendEnemy: killed_cost = 2
+	if enemy_node is LeaperEnemy: killed_cost = 4
+	
+	score += killed_cost
 	check_wave_complete()
 
 func check_wave_complete() -> void:

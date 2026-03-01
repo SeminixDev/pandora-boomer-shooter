@@ -47,6 +47,7 @@ func update_wave_stats() -> void:
 	if not wave_manager: return
 	
 	wave_label.text = "Wave: %d" % wave_manager.current_wave
+	score_label.text = "Score: %d" % wave_manager.score
 	difficulty_label.text = "Difficulty Score: %d" % wave_manager.total_wave_budget
 	
 	# Indicate remaining enemies + if there's remaining budget that will spawn
