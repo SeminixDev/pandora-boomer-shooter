@@ -7,7 +7,7 @@ class_name WaveManager extends Node
 	"Leaper": {"scene": preload("res://Enemy/leaper_enemy.tscn"), "cost": 4}
 }
 
-@export var initial_budget: int = 15
+@export var initial_budget: int = 10
 @export var budget_multiplier: float = 1.15
 @export var spawn_interval: float = 0.1
 @export var breather_duration: float = 5.0
@@ -51,7 +51,7 @@ func start() -> void:
 
 func start_wave() -> void:
 	print("Starting Wave: ", current_wave)
-	total_wave_budget = int(initial_budget * pow(budget_multiplier, current_wave - 1))
+	total_wave_budget = int(initial_budget * pow(budget_multiplier, current_wave - 1)) + current_wave * 2 - 2 
 	current_budget = total_wave_budget
 	spawn_timer.start()
 
