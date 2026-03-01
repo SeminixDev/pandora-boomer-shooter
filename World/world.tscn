@@ -35,6 +35,23 @@ size = Vector3(2, 1, 0.05)
 [sub_resource type="BoxShape3D" id="BoxShape3D_3f78f"]
 size = Vector3(2, 1, 0.05)
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_k8do8"]
+height = 15.939331
+radius = 2.4365234
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k8do8"]
+size = Vector3(2.501892, 3.7418213, 4.354248)
+
+[sub_resource type="GDScript" id="GDScript_3f78f"]
+script/source = "extends Area3D
+
+func _on_body_entered(body: Node3D) -> void:
+	%WaveManager.start()
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bkhv4"]
+size = Vector3(9.591797, 7.8668213, 23.498901)
+
 [node name="World" type="Node3D" unique_id=635267046]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1336491903]
@@ -49,7 +66,7 @@ shadow_enabled = true
 
 [node name="Player" parent="." unique_id=1346923229 instance=ExtResource("1_62w18")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.46158, -2.6307213, -0.76152754)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 41.199078, 2.112265, -0.76152754)
 collision_mask = 1
 max_health = 9999
 
@@ -102,6 +119,28 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/MainArea/MeshInstance3D4/StaticBody3D" unique_id=468762611]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 shape = SubResource("BoxShape3D_3f78f")
+
+[node name="AngelBody" type="StaticBody3D" parent="Environment/MainArea" unique_id=188583311]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/MainArea/AngelBody" unique_id=1591082909]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.59367, 3.4399548, 0.030597806)
+shape = SubResource("CylinderShape3D_k8do8")
+
+[node name="PandoraBoxBody" type="StaticBody3D" parent="Environment/MainArea" unique_id=2119278398]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.563072, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/MainArea/PandoraBoxBody" unique_id=268667582]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45419312, -0.8805542, 0.08288574)
+shape = SubResource("BoxShape3D_k8do8")
+
+[node name="Area3D" type="Area3D" parent="Environment/MainArea/PandoraBoxBody" unique_id=2132776591]
+collision_layer = 2
+collision_mask = 2
+script = SubResource("GDScript_3f78f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/MainArea/PandoraBoxBody/Area3D" unique_id=1582219531]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6705036, 0.3718872, -0.07200146)
+shape = SubResource("BoxShape3D_bkhv4")
 
 [node name="WaveManager" parent="." unique_id=1144403524 instance=ExtResource("6_bkhv4")]
 unique_name_in_owner = true
@@ -193,3 +232,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.060923, 0.0064327717, -25
 
 [node name="SpawnPoint22" parent="SpawnPoints" unique_id=10971517 instance=ExtResource("4_3f78f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.457886, 0.0064308643, 26.746346)
+
+[connection signal="body_entered" from="Environment/MainArea/PandoraBoxBody/Area3D" to="Environment/MainArea/PandoraBoxBody/Area3D" method="_on_body_entered"]

@@ -23,8 +23,8 @@ var breather_timer: Timer
 @onready var spawn_points: Array[Node] = []
 @onready var player: Player = %Player
 
-func _ready() -> void:
-	# Find all spawn points in the world (Make sure to group your spawn points under a Node called "SpawnPoints" in world.tscn)
+func start() -> void:
+		# Find all spawn points in the world (Make sure to group your spawn points under a Node called "SpawnPoints" in world.tscn)
 	var spawns_node = get_tree().current_scene.get_node_or_null("SpawnPoints")
 	if spawns_node:
 		spawn_points = spawns_node.get_children()
@@ -97,7 +97,9 @@ func check_wave_complete() -> void:
 
 # --- Helpers for the HUD ---
 func is_in_breather() -> bool:
+	if not breather_timer: return true
 	return not breather_timer.is_stopped()
 
 func get_time_until_next_wave() -> float:
+	if not breather_timer: return 0.0
 	return breather_timer.time_left
