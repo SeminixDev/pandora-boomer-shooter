@@ -49,6 +49,9 @@ var original_camera_rotation_x: float = 0.0
 func _ready() -> void:
 	current_health = max_health
 	
+	time_since_last_heavy = heavy_melee_cooldown
+	time_since_last_quick = quick_melee_cooldown
+	
 	scythe.attack_finished.connect(_on_scythe_attack_finished)
 
 func _physics_process(delta: float) -> void:
