@@ -10,20 +10,27 @@ config_version=5
 
 [application]
 
-config/name="Unnamed Boomer Shooter"
+config/name="Cleanse me to Freedom"
 run/main_scene="uid://ckx5xm6ryj5u1"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/show_image=false
 boot_splash/layer_3="Enemy"
 boot_splash/layer_2="Player"
 boot_splash/layer_1="Common"
 boot_splash/layer_5="Trap"
 boot_splash/layer_11=""
 
+[audio]
+
+buses/default_bus_layout="uid://dnsyghk800mnl"
+
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/mode=2
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [godot_hub]
 
