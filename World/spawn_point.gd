@@ -1,6 +1,6 @@
 class_name SpawnPoint extends Marker3D
 
-var safe_distance: float = 50.0 # Won't spawn if player is closer than this
+var safe_distance: float = 40.0 # Won't spawn if player is closer than this
 @onready var particles: GPUParticles3D = $GPUParticles3D
 
 func is_safe_to_spawn(player: Node3D) -> bool:
